@@ -185,12 +185,12 @@ void opcontrol() {
     int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
 
     if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-      intake1.move_voltage(-127);
-      intake2.move_voltage(127);
+      intake1.move_voltage(12000);
+      intake2.move_voltage(-12000);
     }
     else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-      intake1.move_voltage(127);
-      intake2.move_voltage(-127);
+      intake1.move_voltage(-12000);
+      intake2.move_voltage(12000);
     }
     else {
       intake1.move_voltage(0);

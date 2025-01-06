@@ -5,8 +5,8 @@
 
 
 // MOTORS //
-pros::MotorGroup left_motors({-17, 18, -8}, pros::MotorGearset::blue);
-pros::MotorGroup right_motors({19, -10, 7 }, pros::MotorGearset::blue);
+pros::MotorGroup left_motors({-17, 18, 16}, pros::MotorGearset::blue);
+pros::MotorGroup right_motors({19, -10, 20 }, pros::MotorGearset::blue);
 
 pros::Motor intake1(7, pros::MotorGearset::blue); //11W
 pros::Motor intake2(8, pros::MotorGearset::blue); //5.5W
