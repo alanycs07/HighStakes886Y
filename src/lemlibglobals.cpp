@@ -8,8 +8,8 @@
 pros::MotorGroup left_motors({-17, 18, -8}, pros::MotorGearset::blue);
 pros::MotorGroup right_motors({19, -10, 7 }, pros::MotorGearset::blue);
 
-pros::Motor conveyor(6, pros::MotorGearset::blue);
-pros::Motor intake(9, pros::MotorGearset::blue);
+pros::Motor intake1(7, pros::MotorGearset::blue); //11W
+pros::Motor intake2(8, pros::MotorGearset::blue); //5.5W
 pros::Motor arm (20, pros::MotorGearset::red);
 lemlib::Drivetrain drivetrain(&left_motors, &right_motors, 10.2, lemlib::Omniwheel::NEW_275, 450, 2);
 

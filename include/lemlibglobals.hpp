@@ -11,8 +11,8 @@
 extern pros::MotorGroup left_motors;
 extern pros::MotorGroup right_motors;
 
-extern pros::Motor conveyor;
-extern pros::Motor intake;
+extern pros::Motor intake1;
+extern pros::Motor intake2;
 extern pros::Motor arm;
 extern lemlib::Drivetrain drivetrain;
 

@@ -155,76 +155,6 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-  if (autonColor == 0) {
-    //RED
-    if (startingPos == 0) {
-      if (path == 0) {
-        redPositiveSoloAWP();
-      }
-      else if (path == 1) {
-        redPositiveSoloAWPElims();
-      }
-      else if (path == 2) {
-        redRushFast();
-      }
-      else {
-        redRushAlliance();
-      }
-    }
-    else if (startingPos == 1) {
-      if (path == 0) {
-        redNegativeQuals();
-      }
-      else if (path == 1) {
-        redNegativeAlliance();
-      }
-      else {
-        redNegativeElims();
-      }
-    }
-  } 
-  else if (autonColor == 1) {
-    //BLUE
-    if (startingPos == 0) {
-      if (path == 0) {
-        bluePositiveSoloAWP();
-      }
-      else if (path == 1) {
-        bluePositiveSoloAWPElims();
-      }
-      else if (path == 2) {
-        blueRushFast();
-      }
-      else {
-        blueRushAlliance();
-      }
-    }
-    else if (startingPos == 1) {
-      if (path == 0) {
-        blueNegativeQuals();
-      }
-      else if (path == 1) {
-        blueNegativeAlliance();
-      }
-      else {
-        blueNegativeElims();
-      }      
-    }
-  }
-  else if (autonColor == 2) {
-    //MISC
-    if (startingPos == 2) {
-      if (path == 0) {
-        skills();
-      }
-      else if (path == 1) {
-        noAuto();
-      }
-      else {
-        leaveLine();
-      }
-    }
-  }
 
 }
 
@@ -254,106 +184,19 @@ void opcontrol() {
     int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
 
-    /////////////////////////////////////////////////////
-    // ARM CONTROL//
-    /////////////////////////////////////////////////////
-    if (rightY > 30) {
-      armMacro = false;
-      arm.move(rightY);
-    } else if (rightY < -30) {
-      armMacro = false;
-      arm.move(rightY);
+    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+      intake1.move_voltage(-127);
+      intake2.move_voltage(127);
     }
-
-    if (!armMacro && std::abs(rightY) < 30) {
-      arm.move(0);
+    else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+      intake1.move_voltage(127);
+      intake2.move_voltage(-127);
     }
-    if (rightX > 70) {
-      //loading
-      armMacro = true;
-      armTarget = loadingPos;
+    else {
+      intake1.move_voltage(0);
+      intake2.move_voltage(0);
     }
-
-    if (rightX < -70) {
-      //alliance stake lineup
-      armMacro = true;
-      armTarget = 30000;
-    }
-
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
-      //goal flip
-      armMacro = true;
-      armTarget = 36000;
-    }
-
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
-      //descore
-      armMacro = true;
-      armTarget = 28000;
-    }
-    if (armMacro) {
-      error = angleWrapOneDirection(armTarget, armRotation.get_angle(),
-                                    -1); // 7250 = target
-      derivative = (error - previous_error);
-      if (fabs(error) < 0.5 || fabs(error + derivative) < 0.5) {
-        arm.move_voltage(0);
-      }
-      if (sign(error) != sign(previous_error)) {
-        integral += error;
-      } else {
-        integral = 0;
-      }
-      arm.move_voltage(error * armkP + integral * armkI + derivative * armkD);
-      previous_error = error;
-    }
-
     chassis.arcade(leftY, leftX);
-
-    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-      intake.move_voltage(12000);
-      conveyor.move_voltage(-12000);
-
-    } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-      // ejectorIntake(forward, no_colour);
-      intake.move_voltage(-12000);
-      conveyor.move_voltage(12000);
-      // ejectorIntake();
-    } else {
-      intake.move_voltage(0);
-      conveyor.move_voltage(0);
-    }
-
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) {
-      isExtended2 = !isExtended2;
-      doinker.set_value(isExtended2);
-    }
-
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) {
-      isExtended1 = !isExtended1;
-      goalClamp.set_value(isExtended1);
-    }
-
-    if (rightY != 0) {
-      taskDisable1 = true;
-      taskDisable2 = true;
-      taskDisable3 = true;
-    }
-
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-      isExtended3 = !isExtended3;
-      intakeRaise.set_value(isExtended3);
-    }
-
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
-      isExtended4 = !isExtended4;
-      rushClamp.set_value(isExtended4);
-    }
-
-    // if (digitalA) {
-    // 	isExtended4 = !isExtended4;
-    // 	hang.set_value(isExtended4);
-    // }
-    // arm.move_voltage(rightY * 120);
     pros::delay(25); // Run for 20 ms then update
   }
 }
