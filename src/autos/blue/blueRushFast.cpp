@@ -88,6 +88,5 @@ void blueRushFast () {
     // // goalClamp.set_value(false);
     // // chassis.turnToHeading(351.5, 800);
     // // 351.5
-
-
+    isExtended2 = true;
 }

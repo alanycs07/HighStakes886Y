@@ -48,4 +48,13 @@ extern const int allianceStakePos;
 extern const int wallStakePos;
 extern const int armRaisedPos;
 extern const int barTouchPos;
+
+//piston
+  extern bool isExtended1;
+  extern bool isExtended2;
+  extern bool isExtended3;
+  extern bool isExtended4;
+  extern bool taskDisable1;
+  extern bool taskDisable2;
+  extern bool taskDisable3;
 #endif

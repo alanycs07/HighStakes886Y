@@ -72,5 +72,5 @@ void redRushFast () {
     // chassis.turnToHeading(351.5, 800);
     // 351.5
 
-
+  isExtended2 = true;
 }

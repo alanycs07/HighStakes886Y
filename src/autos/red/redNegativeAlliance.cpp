@@ -47,10 +47,10 @@ void redNegativeAlliance() {
 //   chassis.moveToPoint(-23.5, 0, 3000, {.maxSpeed = 40});
 
   // ELIMS ONLY BELOW - 6 RING//
-  chassis.turnToPoint(-49, 7, 500);
+  chassis.turnToPoint(-49, 6, 500);
   chassis.waitUntilDone();
   intakeRaise.set_value(false);
-  chassis.moveToPoint(-49, 7, 1500, {.maxSpeed = 90});
+  chassis.moveToPoint(-49, 6, 1500, {.maxSpeed = 90});
   chassis.waitUntil(10);
   armTarget = loadingPos;
 //   pros::delay(200);
@@ -60,9 +60,9 @@ void redNegativeAlliance() {
   conveyor.move_velocity(-12000);
   chassis.moveToPoint(-49, 19, 1000, {.forwards = false});
 //   chassis.turnToHeading(225, 800);
-  chassis.turnToPoint(-62.5, 10.5, 800);
+  chassis.turnToPoint(-62.5, 8.5, 800);
   //SCORE
-  chassis.moveToPoint(-62.5, 10.5, 1000, {.maxSpeed = 40});
+  chassis.moveToPoint(-62.5, 8.5, 1000, {.maxSpeed = 60});
   chassis.waitUntilDone();
   conveyor.move_velocity(0);
   intake.move_velocity(0);
@@ -76,5 +76,5 @@ void redNegativeAlliance() {
   // chassis.moveToPoint(-31.5, 5, 1000, {.maxSpeed = 70});
   // chassis.waitUntil(8);
   // armTarget = wallStakePos;
-
+  isExtended1 = true;
 }

@@ -57,5 +57,6 @@ void blueRushAlliance() {
   intake.move_velocity(-12000);
   conveyor.move_velocity(-12000);
 
+  isExtended1 = true;
 }
 

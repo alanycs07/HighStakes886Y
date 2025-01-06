@@ -60,5 +60,6 @@ void redRushAlliance() {
   pros::delay(1000);
   chassis.turnToHeading(90 ,1000);
   intake.move_velocity(0);
+  isExtended1 = true;
 }
 

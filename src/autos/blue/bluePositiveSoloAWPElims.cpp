@@ -49,4 +49,6 @@ void bluePositiveSoloAWPElims() {
   intake.move_velocity(-12000);
   chassis.waitUntilDone();
   conveyor.move_velocity(-12000);
+
+  isExtended1 = true;
 }

@@ -58,7 +58,7 @@ void redPositiveSoloAWP() {
   chassis.waitUntilDone();
   intake.move_velocity(0);
   conveyor.move_velocity(0);
-  chassis.moveToPoint(-39, -15, 1000, {.minSpeed = 40});
+  chassis.moveToPoint(-32, -9, 1000, {.minSpeed = 40});
   chassis.waitUntilDone();
   armTarget = wallStakePos;
   // chassis.moveToPoint(-28.5, 1, 2000, {.maxSpeed = 40});
@@ -84,5 +84,6 @@ void redPositiveSoloAWP() {
   // // chassis.moveToPoint(-65, -65, 1000, {.maxSpeed = 40});
   // conveyor.move_velocity(-12000);
   // chassis.turnToHeading(180, 1000, {.maxSpeed = 40});
+  isExtended1 = true;
 }
 

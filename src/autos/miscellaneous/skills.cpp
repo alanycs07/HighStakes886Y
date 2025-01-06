@@ -95,15 +95,15 @@ void skills() {
   chassis.waitUntilDone();
   armTarget = loadingPos;
   pros::delay(200);
-  chassis.moveToPoint(-57, 71, 1200, {.forwards = false});
+  chassis.moveToPoint(-57, 68, 1200, {.forwards = false}); //change y for 2nd wallstake
   chassis.turnToHeading(-90, 1000);
   chassis.waitUntilDone();
   intake.move_velocity(0);
   conveyor.move_velocity(0);
-  chassis.moveToPoint(-80, 71, 1200);
+  chassis.moveToPoint(-80, 67.4, 1200);
   chassis.waitUntil(3);
   armTarget = wallStakePos;
-  chassis.moveToPoint(-49, 68, 900, {.forwards = false});
+  chassis.moveToPoint(-49, 67.4, 900, {.forwards = false});
   chassis.waitUntilDone();
   armTarget = restingPos;
   chassis.turnToHeading(180, 800); // aim for bottom 2 rings
@@ -128,17 +128,18 @@ void skills() {
   intake.move_velocity(1000);
   conveyor.move_velocity(1000);
   pros::delay(200);
-  goalClamp.set_value(false);
+  goalClamp.set_value(false); // put second goal down
   intake.move_velocity(0);
   conveyor.move_velocity(0);
   chassis.moveToPose(-20.7, 82.6, 51, 2000, {.minSpeed = 95});
   chassis.waitUntil(1);
   intake.move_velocity(-12000);
-  pros::delay(300);
+  chassis.waitUntilDone();
+  pros::delay(200);
   chassis.turnToHeading(-145, 1000);
   chassis.moveToPoint(6, 107, 1200, {.forwards = false, .maxSpeed = 60});
   chassis.waitUntilDone();
-  goalClamp.set_value(true);
+  goalClamp.set_value(true); // clamp 3rd goal 
   /*
   chassis.turnToHeading(0, 900);
   chassis.waitUntilDone();
@@ -181,11 +182,12 @@ void skills() {
   */
 
   
-  chassis.moveToPoint(-47, 106.5, 1400, {.maxSpeed = 90});
-   intake.move_velocity(-12000);
+  chassis.moveToPoint(-45, 106.5, 1400, {.maxSpeed = 70});
+  chassis.waitUntil(3);
+  intake.move_velocity(-12000);
   conveyor.move_velocity(-12000);
   chassis.waitUntilDone();
-  pros::delay(200);
+  pros::delay(600);
   chassis.turnToHeading(135, 1000);
   chassis.waitUntilDone();
   intake.move_velocity(1000);
@@ -205,7 +207,7 @@ void skills() {
 
   chassis.turnToHeading(0, 1400, {.maxSpeed = 90});
   chassis.moveToPoint(6.5, 130, 800, {.maxSpeed = 60});
-  chassis.moveToPoint(6.5, 114.1, 800, {.forwards = false, .maxSpeed = 60});
+  chassis.moveToPoint(6.5, 114, 800, {.forwards = false, .maxSpeed = 60});
   intake.move_velocity(0);
   conveyor.move_velocity(0);
   chassis.waitUntilDone();

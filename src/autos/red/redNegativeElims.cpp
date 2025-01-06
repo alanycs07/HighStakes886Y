@@ -43,14 +43,15 @@ void redNegativeElims() {
   chassis.turnToPoint(-51, 10, 500);
   chassis.waitUntilDone();
   intakeRaise.set_value(false);
-  chassis.moveToPoint(-51, 10, 1500, {.maxSpeed = 72});
+  chassis.moveToPoint(-51, 7, 1500, {.maxSpeed = 72});
   chassis.waitUntilDone();
   pros::delay(200);
   intakeRaise.set_value(true);
-  pros::delay(700);
-  chassis.moveToPoint(-58, 19, 1000, {.forwards = false});
+  pros::delay(1000);
+  chassis.moveToPoint(-58, 16.5, 1000, {.forwards = false});
   chassis.waitUntilDone();
   pros::delay(500);
   conveyor.move_velocity(0);
+  isExtended1 = true;
 }
 

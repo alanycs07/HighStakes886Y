@@ -51,5 +51,7 @@ void blueNegativeQuals() {
   // chassis.waitUntilDone();
   // pros::delay(500);
   // conveyor.move_velocity(0);
+
+  isExtended1 = true;
 }
 

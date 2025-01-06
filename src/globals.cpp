@@ -53,5 +53,19 @@ int path = 0;
 //starting pos
 int startingPos = 0; 
 
+//piston
+  //goal clamp
+  bool isExtended1 = false;
+  //doinker
+  bool isExtended2 = false;
+  //intake raise
+  bool isExtended3 = true;
+  //rush clamp
+  bool isExtended4 = false;
+  //USELESS
+  bool taskDisable1 = false;
+  bool taskDisable2 = false;
+  bool taskDisable3 = false;
+
 
 
