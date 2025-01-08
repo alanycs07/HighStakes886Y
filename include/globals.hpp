@@ -4,11 +4,9 @@
 
 // MOTORS //
 extern pros::Rotation armRotation;
-extern pros::adi::DigitalOut hang;
-extern pros::adi::DigitalOut intakeRaise;
-extern pros::adi::DigitalOut doinker;
+extern pros::Distance intakeDistance;
+extern pros::adi::DigitalOut armPiston;
 extern pros::adi::DigitalOut goalClamp;
-extern pros::adi::DigitalOut rushClamp;
 extern pros::Controller controller;
 
 // ARM PID //
@@ -41,17 +39,9 @@ extern int autonColor;
 extern int path;
 extern int startingPos;
 
-// ARM TARGETS //
-extern const int loadingPos;
-extern const int restingPos;
-extern const int allianceStakePos;
-extern const int wallStakePos;
-extern const int armRaisedPos;
-extern const int barTouchPos;
-
 //piston
-  extern bool isExtended1;
-  extern bool isExtended2;
+  extern bool clampExtended;
+  extern bool armExtended;
   extern bool isExtended3;
   extern bool isExtended4;
 #endif

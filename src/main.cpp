@@ -102,24 +102,6 @@ void initialize() {
       pros::delay(40);
     }
   });
-  pros::Task Macro([&]() {
-    while (autoStarted == true) {
-      error = angleWrapOneDirection(armTarget, armRotation.get_angle(), -1); // 7250 = target
-      derivative = (error - previous_error);
-      if (fabs(error) < 0.5 || fabs(error + derivative) < 0.5) {
-        arm.move_voltage(0);
-        // break;
-      }
-      if (sign(error) != sign(previous_error)) {
-        integral += error;
-      } else {
-        integral = 0;
-      }
-      arm.move_voltage(error * armkP + integral * armkI + derivative * armkD);
-      previous_error = error;
-      pros::delay(25);
-    }
-  });
   pros::lcd::set_text(4, "Color: Red");
   pros::lcd::set_text(5, "Starting Position: Positive");
   pros::lcd::set_text(6, "Autonomous Running: 3 + 1 AWP");
@@ -177,7 +159,6 @@ void opcontrol() {
   // bool isExtended1 = true; // remove for DRIVER SKILLS
   arm.set_brake_mode(pros::MotorBrake::hold);
   // //BELOW FOR DRIVER SKILLS//
-  intakeRaise.set_value(true);
   while (true) {
     int rightY = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
     int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
@@ -195,6 +176,27 @@ void opcontrol() {
     else {
       intake1.move_voltage(0);
       intake2.move_voltage(0);
+    }
+
+
+    if(rightY > 25) {
+      arm.move_voltage(-12000);
+    } 
+    else if (rightY < -25) {
+      arm.move_voltage(12000);
+    }
+    else {
+      arm.move_voltage(0);
+    }
+
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) {
+      clampExtended = !clampExtended;
+      goalClamp.set_value(clampExtended);
+    }
+
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) {
+      armExtended = !armExtended;
+      armPiston.set_value(armExtended);
     }
     chassis.arcade(leftY, leftX);
     pros::delay(25); // Run for 20 ms then update

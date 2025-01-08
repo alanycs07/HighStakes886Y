@@ -3,22 +3,11 @@
 #include "pros/adi.hpp"
 
 // MOTORS //
-pros::Rotation armRotation(21);
-pros::adi::DigitalOut hang(3);
-pros::adi::DigitalOut intakeRaise(4);
-pros::adi::DigitalOut doinker(2);
+pros::Rotation armRotation(13);
+pros::Distance intakeDistance(21);
+pros::adi::DigitalOut armPiston(2);
 pros::adi::DigitalOut goalClamp(1);
-pros::adi::DigitalOut rushClamp(5);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
-
-// ARM TARGETS //
-const int loadingPos = 15800;
-const int restingPos = 12000;
-const int wallStakePos = 30000;
-const int allianceStakePos = 35000;
-const int armRaisedPos = 20000;
-const int barTouchPos = 25000;
-
 // ARM PID //
 bool armMacro = false;
 double armPosition;
@@ -26,7 +15,7 @@ double armkP = 2.45;
 double armkI = 0;
 double armkD = 2.1;
 double previous_error = 0;
-double target = restingPos;
+double target;
 double error;
 double integral;
 double armVoltage;
@@ -55,17 +44,13 @@ int startingPos = 0;
 
 //piston
   //goal clamp
-  bool isExtended1 = false;
+  bool clampExtended = false;
   //doinker
-  bool isExtended2 = false;
+  bool armExtended = false;
   //intake raise
   bool isExtended3 = true;
   //rush clamp
   bool isExtended4 = false;
-  //USELESS
-  bool taskDisable1 = false;
-  bool taskDisable2 = false;
-  bool taskDisable3 = false;
 
 
 

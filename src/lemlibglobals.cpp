@@ -5,13 +5,13 @@
 
 
 // MOTORS //
-pros::MotorGroup left_motors({-17, 18, 16}, pros::MotorGearset::blue);
-pros::MotorGroup right_motors({19, -10, 20 }, pros::MotorGearset::blue);
+pros::MotorGroup left_motors({18, -17, -10}, pros::MotorGearset::blue);
+pros::MotorGroup right_motors({-11, 12, 6}, pros::MotorGearset::blue);
 
 pros::Motor intake1(7, pros::MotorGearset::blue); //11W
 pros::Motor intake2(8, pros::MotorGearset::blue); //5.5W
-pros::Motor arm (20, pros::MotorGearset::red);
-lemlib::Drivetrain drivetrain(&left_motors, &right_motors, 10.2, lemlib::Omniwheel::NEW_275, 450, 2);
+pros::Motor arm (9, pros::MotorGearset::green);
+lemlib::Drivetrain drivetrain(&left_motors, &right_motors, 11.125, lemlib::Omniwheel::NEW_275, 450, 2);
 
 // lateral PID controller
 lemlib::ControllerSettings lateral_controller(8, // proportional gain (kP)
@@ -40,15 +40,15 @@ lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
 // create the chassis
 
 // imu
-pros::Imu imu(11);
+pros::Imu imu(16);
 // horizontal tracking wheel encoder
-pros::Rotation horizontal_encoder(14);
-pros::Rotation vertical_encoder(-12);
+pros::Rotation horizontal_encoder(5);
+pros::Rotation vertical_encoder(14);
 // vertical tracking wheel encoder
 // pros::adi::Encoder vertical_encoder('E', 'F', true);
 // horizontal tracking wheel
-lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2,1.25);
-lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2,0);
+lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2,1.625);
+lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2,-.125);
 // // vertical tracking wheel
 // lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -2.5);
 
