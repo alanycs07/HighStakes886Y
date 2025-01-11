@@ -5,6 +5,9 @@
 // MOTORS //
 pros::Rotation armRotation(13);
 pros::Distance intakeDistance(21);
+pros::adi::DigitalOut leftDoinker(3);
+pros::adi::DigitalOut armRetractPiston(4);
+pros::adi::DigitalOut rightDoinker(5);
 pros::adi::DigitalOut armPiston(2);
 pros::adi::DigitalOut goalClamp(1);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
@@ -43,14 +46,10 @@ int path = 0;
 int startingPos = 0; 
 
 //piston
-  //goal clamp
   bool clampExtended = false;
-  //doinker
   bool armExtended = false;
-  //intake raise
-  bool isExtended3 = true;
-  //rush clamp
-  bool isExtended4 = false;
+  bool rightDoinkerExtended = false;
+  bool leftDoinkerExtended = false;
 
 
 

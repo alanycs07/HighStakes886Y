@@ -5,6 +5,9 @@
 // MOTORS //
 extern pros::Rotation armRotation;
 extern pros::Distance intakeDistance;
+extern pros::adi::DigitalOut leftDoinker;
+extern pros::adi::DigitalOut rightDoinker;
+extern pros::adi::DigitalOut armRetractPiston;
 extern pros::adi::DigitalOut armPiston;
 extern pros::adi::DigitalOut goalClamp;
 extern pros::Controller controller;
@@ -42,6 +45,6 @@ extern int startingPos;
 //piston
   extern bool clampExtended;
   extern bool armExtended;
-  extern bool isExtended3;
-  extern bool isExtended4;
+  extern bool rightDoinkerExtended;
+  extern bool leftDoinkerExtended;
 #endif

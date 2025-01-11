@@ -14,7 +14,7 @@ pros::Motor arm (9, pros::MotorGearset::green);
 lemlib::Drivetrain drivetrain(&left_motors, &right_motors, 11.125, lemlib::Omniwheel::NEW_275, 450, 2);
 
 // lateral PID controller
-lemlib::ControllerSettings lateral_controller(8, // proportional gain (kP)
+lemlib::ControllerSettings lateral_controller(9, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               9.5, // derivative gain (kD)
                                               3, // anti windup
@@ -26,9 +26,9 @@ lemlib::ControllerSettings lateral_controller(8, // proportional gain (kP)
 );
 
 // angular PID controller
-lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
+lemlib::ControllerSettings angular_controller(3.2, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              14.5, // derivative gain (kD)
+                                              28, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in degrees
                                               100, // small error range timeout, in milliseconds

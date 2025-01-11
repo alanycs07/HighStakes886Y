@@ -13,12 +13,24 @@
 #include "pros/rotation.hpp"
 #include "pros/rtos.hpp"
 
+ASSET(clampGoalCurve_txt);
 /**
  * A callback function for LLEMU's center button.
  *
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
+ bool spinIntake = false;
+
+ void intakeUntilLoaded() {
+    intake1.move_voltage(12000);
+    intake2.move_voltage(-12000);
+    if (intakeDistance.get_distance() < 30) {
+      spinIntake = false;
+      intake1.move_voltage(0);
+      intake2.move_voltage(0);
+  }
+ }
 
 //////////////////////////////////////////////////////////
 // ARM PID
@@ -100,6 +112,13 @@ void initialize() {
       pros::lcd::print(3, "Angle: %ld", armRotation.get_angle());
       // delay to save resources
       pros::delay(40);
+      
+    }
+  });
+  pros::Task intakeTask([&]() {
+    while(spinIntake == true) {
+        intakeUntilLoaded();
+    pros::delay(20);
     }
   });
   pros::lcd::set_text(4, "Color: Red");
@@ -137,6 +156,129 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
+  chassis.setPose(-53.25, -11.5, 300);
+  spinIntake = false;
+  chassis.moveToPose(-64, -5.5, 300, 700);
+  chassis.waitUntilDone();
+  arm.move_voltage(-12000);
+  pros::delay(700);
+  // chassis.follow(clampGoalCurve_txt, 4, 2000, false);
+  // chassis.moveToPose(-31, -21, 290, 1500, {.forwards = false, .minSpeed = 40});
+  chassis.moveToPoint(-28.5, -22.5, 2000, {.forwards = false, .maxSpeed = 70});
+  chassis.waitUntil(8);
+  arm.move_voltage(12000);
+  chassis.waitUntilDone();
+  arm.move_voltage(0);
+  chassis.waitUntilDone();
+  goalClamp.set_value(true);
+  chassis.turnToPoint(-41, -15, 400);
+  chassis.moveToPoint(-41, -15, 700);
+  chassis.waitUntilDone();
+  rightDoinker.set_value(true);
+  pros::delay(500);
+  chassis.moveToPoint(-23.5, -23, 800, {.forwards = false});
+  chassis.turnToPoint(-20, -47, 800, {.maxSpeed = 60});
+  chassis.waitUntilDone();
+  rightDoinker.set_value(false);
+  pros::delay(100);
+  chassis.turnToPoint(-27, -53, 800);
+  chassis.waitUntilDone();
+  intake1.move_voltage(12000);
+  intake2.move_voltage(-12000);
+  chassis.moveToPoint(-27, -53, 1000);
+  chassis.waitUntilDone();
+  pros::delay(500);
+  chassis.turnToPoint(-65, -65, 500);
+  // chassis.moveToPoint(-51.5, -61.5, 1000);
+  chassis.moveToPoint(-70, -70, 2500, {.maxSpeed = 80});
+  // pros::delay(400);
+  chassis.moveToPoint(-41, -59, 1000, {.forwards = false});
+  chassis.turnToPoint(-17, -23, 1000);
+  chassis.moveToPoint(-17, -23, 1000, {.maxSpeed = 60});
+  chassis.waitUntilDone();
+  // arm.move_voltage(-12000);
+  // pros::delay(700);
+  // arm.move_voltage(0);
+  // chassis.waitUntil(10);
+  // armPiston.set_value(true);
+
+//  //RING RUSH
+//  chassis.setPose(-49.75, 25.25, 64.85);
+//  spinIntake = true;
+//  leftDoinker.set_value(true);
+// //  chassis.moveToPose(-15, 41.25, 64.85, 1500, {.minSpeed = 80});
+//  chassis.moveToPoint(-8, 43.5, 1100);
+//  spinIntake = true;
+//  chassis.waitUntilDone();
+//  chassis.moveToPoint(-39, 29.75, 1000, {.forwards = false});
+//  chassis.waitUntil(15);
+//  leftDoinker.set_value(false);
+//  chassis.turnToPoint(-23.5, 23.5, 1000, {.forwards = false, .maxSpeed = 80});
+//  chassis.waitUntilDone();
+//  spinIntake = false;
+//  chassis.moveToPoint(-23.5, 24.5, 1000, {.forwards = false});
+//  chassis.waitUntilDone();
+//  pros::delay(100);
+//  goalClamp.set_value(true);
+//  chassis.turnToPoint(-23.5, 50, 700);
+//  chassis.waitUntilDone();
+//  intake1.move_voltage(12000);
+//  intake2.move_voltage(-12000);
+//  chassis.moveToPoint(-23.5, 53, 1000, {.maxSpeed = 80});
+//  chassis.waitUntilDone();
+//  pros::delay(300);
+//  chassis.turnToPoint(-54.5, 36, 1000);
+//  chassis.moveToPoint(-54.5, 36, 1000, {.maxSpeed = 100});
+//  chassis.waitUntilDone();
+// //  pros::delay(200);
+//  armPiston.set_value(true);
+//  chassis.moveToPoint(-27, 45.5, 1000, {.forwards = false});
+//  chassis.waitUntilDone();
+//  intake1.move_voltage(0);
+//  intake2.move_voltage(0);
+//  chassis.turnToPoint(-7.5, 62.5, 600);
+//  chassis.moveToPoint(-7.5, 62.5, 1000, {.maxSpeed = 75});
+//  chassis.waitUntilDone();
+//  arm.move_voltage(-12000);
+//  pros::delay(900);
+//  arm.move_voltage(0);
+//  intake1.move_voltage(-12000);
+//  intake2.move_voltage(12000);
+//  arm.move_voltage(12000);
+// //  chassis.moveToPoint(-55, 50, 1000, {.forwards = false});
+//  chassis.moveToPoint(-27, 45.5, 1000, {.forwards = false});
+//  chassis.waitUntilDone();
+//  arm.move_voltage(0);
+//  intake1.move_voltage(12000);
+//  intake2.move_voltage(-12000);
+//  chassis.turnToPoint(-70, 70, 700);
+//  chassis.moveToPoint(-70, 70, 1500, {.maxSpeed = 80});
+  
+
+//POS WALL
+  // chassis.setPose(-53.25, -11.5, 300);
+  // spinIntake = false;
+  // chassis.moveToPose(-64, -5.5, 300, 700);
+  // chassis.waitUntilDone();
+  // arm.move_voltage(-12000);
+  // pros::delay(700);
+  // chassis.moveToPoint(-28.5, -22.5, 2000, {.forwards = false, .maxSpeed = 70});
+  // chassis.waitUntil(8);
+  // arm.move_voltage(12000);
+  // chassis.waitUntilDone();
+  // arm.move_voltage(0);
+  // armPiston.set_value(true);
+  // chassis.turnToPoint(-52.5, 7, 1000);
+  // chassis.moveToPoint(-52.5, 7, 1000, {.maxSpeed = 90});
+  // pros::delay(200);
+  // chassis.moveToPoint(-23.5, -23, 800, {.forwards = false});
+  // chassis.turnToPoint(-23.5, -51, 700);
+  // chassis.moveToPoint(-23.5, -51, 1000);
+  // chassis.turnToPoint(-7.5, -62.5, 600);
+  // chassis.moveToPoint(-7.5, -62.5, 1000, {.maxSpeed = 75});
+
+  
+
 
 }
 
@@ -157,7 +299,8 @@ void autonomous() {
 void opcontrol() {
   autoStarted = false;
   // bool isExtended1 = true; // remove for DRIVER SKILLS
-  arm.set_brake_mode(pros::MotorBrake::hold);
+  // arm.set_brake_mode(pros::MotorBrake::hold);
+  spinIntake = false;
   // //BELOW FOR DRIVER SKILLS//
   while (true) {
     int rightY = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
@@ -181,22 +324,37 @@ void opcontrol() {
 
     if(rightY > 25) {
       arm.move_voltage(-12000);
+      armRetractPiston.set_value(true);
     } 
     else if (rightY < -25) {
       arm.move_voltage(12000);
+      armRetractPiston.set_value(false);
     }
     else {
       arm.move_voltage(0);
     }
 
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
+      armPiston.set_value(false);
+    }
+    else if (rightX > 50) {
+      armPiston.set_value(true);
+      // armRetractPiston.set_value(false);
+    }
+    
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) {
       clampExtended = !clampExtended;
       goalClamp.set_value(clampExtended);
     }
 
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) {
-      armExtended = !armExtended;
-      armPiston.set_value(armExtended);
+      rightDoinkerExtended = !rightDoinkerExtended;
+      rightDoinker.set_value(rightDoinkerExtended);
+    }
+
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+      leftDoinkerExtended = !leftDoinkerExtended;
+      leftDoinker.set_value(leftDoinkerExtended);
     }
     chassis.arcade(leftY, leftX);
     pros::delay(25); // Run for 20 ms then update
