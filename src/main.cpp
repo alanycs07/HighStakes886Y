@@ -37,20 +37,24 @@ ASSET(clampGoalCurve_txt);
 void on_left_button() {
   autonColor = (autonColor + 1) % 3;
   if (autonColor == 0) {
-    pros::lcd::set_text(4, "Color: Red");
-  } else if (autonColor == 1){
     pros::lcd::set_text(4, "Color: Blue");
+  } else if (autonColor == 1){
+    pros::lcd::set_text(4, "Color: Red");
   } else {
-    pros::lcd::set_text(4, "Color: MISC");
+    pros::lcd::set_text(4, "Color: No Sorting");
   }
 }
 
 void on_center_button() {
-  startingPos = (startingPos + 1) % 3;
+  startingPos = (startingPos + 1) % 5;
   if (startingPos == 0) {
-    pros::lcd::set_text(5, "Starting Position: Positive");
+    pros::lcd::set_text(5, "Starting Position: Red Positive");
   } else if (startingPos == 1) {
-    pros::lcd::set_text(5, "Starting Position: Negative");
+    pros::lcd::set_text(5, "Starting Position: Red Negative");
+  } else if (startingPos == 2) {
+    pros::lcd::set_text(5, "Starting Position: Blue Positive");
+  } else if (startingPos == 3) {
+    pros::lcd::set_text(5, "Starting Position: Blue Negative");
   } else {
     pros::lcd::set_text(5, "Starting Position: Skills");
   }
@@ -60,29 +64,29 @@ void on_right_button() {
   path = (path + 1) % 4;
 
   //POSITIVE
-  if (path == 0 && startingPos == 0) {
-    pros::lcd::set_text(6, "Autonomous Running: 3 + 1 AWP");
-  } else if (path == 1 && startingPos == 0) {
-    pros::lcd::set_text(6, "Autonomous Running: 3 + 1 Elims");
-  } else if (path == 2 && startingPos == 0) {
-    pros::lcd::set_text(6, "Autonomous Running: Rush Fast");
-  } else if (path == 3 && startingPos == 0) {
-    pros::lcd::set_text(6, "Autonomous Running: Rush Slow");
+  if (path == 0 && (startingPos == 0 || startingPos == 2)) {
+    pros::lcd::set_text(6, "Autonomous Running: N/A");
+  } else if (path == 1 && (startingPos == 0 || startingPos == 2)) {
+    pros::lcd::set_text(6, "Autonomous Running: N/A");
+  } else if (path == 2 && (startingPos == 0 || startingPos == 2)) {
+    pros::lcd::set_text(6, "Autonomous Running: N/A");
+  } else if (path == 3 && (startingPos == 0 || startingPos == 2)) {
+    pros::lcd::set_text(6, "Autonomous Running: N/A");
   }
   //NEGATIVE
-  else if (path == 0 && startingPos == 1) {
-    pros::lcd::set_text(6, "Autonomous Running: 5 Ring AWP");
-  } else if (path == 1 && startingPos == 1) {
-    pros::lcd::set_text(6, "Autonomous Running: 5 + 1 Elims");
-  } else if (path == 2 && startingPos == 1) {
-    pros::lcd::set_text(6, "Autonomous Running: 6 Ring Elims");
+  else if ((path == 0) && (startingPos == 1 || startingPos == 3)) {
+    pros::lcd::set_text(6, "Autonomous Running: N/A");
+  } else if (path == 1 && (startingPos == 1 || startingPos == 3)) {
+    pros::lcd::set_text(6, "Autonomous Running: N/A");
+  } else if (path == 2 && (startingPos == 1 || startingPos == 3)) {
+    pros::lcd::set_text(6, "Autonomous Running: N/A");
   }
   //MISC
-  else if (path == 0 && startingPos == 2) {
+  else if (path == 0 && startingPos == 4) {
     pros::lcd::set_text(6, "Autonomous Running: Skills");
-  } else if (path == 1 && startingPos == 2) {
+  } else if (path == 1 && startingPos == 4) {
     pros::lcd::set_text(6, "Autonomous Running: No Autonomous");
-  } else if (path == 2 && startingPos == 2) {
+  } else if (path == 2 && startingPos == 4) {
     pros::lcd::set_text(6, "Autonomous Running: Leave Line");
   }
 }
@@ -111,7 +115,6 @@ void initialize() {
       pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
       pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
       pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
-      pros::lcd::print(4, "Sorting Color: %ld", colorSensor.get_proximity());
     if (sortingColor == true) {
       if (ejectColor == red) {
         colorSort(red);
@@ -135,37 +138,11 @@ void initialize() {
       
     }
   });
-  // pros::Task intakeTask([&]() {
-  //   while(spinIntake == true) {
-  //       // intakeUntilLoaded();
-  //   pros::delay(20);
-  //   }
-  // });
 
-  // pros::Task Macro([&]() {
-  //   while (true) {
-  //     if (armMacro == true) {
-  //       // measuredAngle = armRotation.get_position();
-  //       // error = angleWrap(armTarget, measuredAngle); // 7250 = target
-  //       // derivative = (error - previous_error);
-  //       // if (fabs(error) < 0.5 || fabs(error + derivative) < 0.5) {
-  //       //   arm.move_voltage(0);
-  //       //   // break;
-  //       // }
-  //       // if (sign(error) != sign(previous_error)) {
-  //       //   integral += error;
-  //       // } else {
-  //       //   integral = 0;
-  //       // }
-  //       // arm.move_voltage(error * armkP + integral * armkI + derivative * armkD);
-  //       // previous_error = error;
-  //       // pros::delay(25);
-  //     }
-  //   }
-  // );
-  pros::lcd::set_text(4, "Color: Red");
-  pros::lcd::set_text(5, "Starting Position: Positive");
-  pros::lcd::set_text(6, "Autonomous Running: 3 + 1 AWP");
+  pros::lcd::set_text(4, "Sorting Color: Blue");
+  pros::lcd::set_text(5, "Starting Position: Red Positive");
+  pros::lcd::set_text(6, "Autonomous Running: N/A");
+
 }
 
 /**
@@ -184,89 +161,71 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+void competition_initialize() {
+
+}
 
 
 void autonomous() {
-  // chassis.setPose(-50.75, -10.5, 291.5);
-  // arm.move_velocity(12000);
-  // pros::delay(800);
-  // arm.move_velocity(-12000);
-  // // // chassis.setPose(-57.5, -14, 315);
-  // // // armTarget = loadingPos;
-  // // // pros::delay(500);
-  // // // conveyor.move_velocity(-12000);
-  // // // chassis.moveToPose(-61.5, -10, 315, 700);
-  // // // chassis.waitUntilDone();
-  // // // conveyor.move_velocity(0);
-  // // // pros::delay(100);
-  // // // armTarget = allianceStakePos;
-  // // // pros::delay(400);
-  // // chassis.moveToPoint(-57.5, -14, 500, {.forwards = false});
-  // // chassis.turnToPoint(-50, 0, 500, {.maxSpeed = 60});
-  // // chassis.waitUntilDone();
-  // // intake.move_velocity(-12000);
-  // // chassis.moveToPoint(-50, 0, 500, {.maxSpeed = 60});
-  // // chassis.waitUntilDone();
-  // // // pros::delay(300);
-  // // intakeRaise.set_value(true);
-  // // // armTarget = 12000;
-  // // pros::delay(500);
-  // // chassis.moveToPoint(-52, -7, 700, {.forwards = false, .maxSpeed = 60});
-  // // chassis.turnToPoint(-27, -21.5, 700, {.forwards = false});
-  // // chassis.moveToPoint(-38, -15, 400, {.forwards = false});
-  // // chassis.moveToPoint(-27, -21.5, 700, {.forwards = false, .maxSpeed = 50});
-  // // chassis.waitUntilDone();
-  // chassis.moveToPoint(-29, -20.5, 1500, {.forwards = false, .maxSpeed = 70});
-  // chassis.waitUntilDone();
-  // arm.move_velocity(0);
-  // goalClamp.set_value(true);
-  // pros::delay(200);
-  // chassis.turnToPoint(-27, -41, 1000, {.maxSpeed = 60});
-  // chassis.waitUntilDone();
-  // intake.move_velocity(12000);
-  // chassis.moveToPoint(-27, -41, 1000);
-  // // chassis.moveToPoint(-27, -35, 500, {.forwards = false});
-  // // chassis.turnToPoint(-58, -35, 500);
-  // // chassis.moveToPoint(-58, -35, 700);
-  // // chassis.waitUntil(10);
-  // // intake.move_velocity(0);
-  // // intake.move_velocity(0);
-  // chassis.turnToPoint(-70, -65, 900);
-  // chassis.moveToPoint(-70, -65, 2500, {.maxSpeed = 60});
-  // chassis.waitUntil(10);
-  // intake.move_velocity(12000);
-  // // pros::delay(200);
-  // chassis.moveToPoint(-58, -35, 1000, {.forwards = false});
-  // chassis.turnToPoint(-28.5, 1, 1000);
-  // chassis.waitUntilDone();
-  // intake.move_velocity(0);
-  // chassis.moveToPoint(-32, -9, 1000, {.minSpeed = 40});
-  // chassis.waitUntilDone();
-  // // chassis.moveToPoint(-28.5, 1, 2000, {.maxSpeed = 40});
+//COLOR SORT//
+  if (autonColor == 0) {
+    //EJECT BLUE
+    ejectColor = blue;
+  }
+  else if (autonColor == 1) {
+    //EJECT RED
+    ejectColor = red;
+  }
+  else {
+    ejectColor = noColor;
+  }
 
-  // // chassis.waitUntilDone();
-  // // pros::delay(1000);
-  // // goalClamp.set_value(false);
-  // // pros::delay(200);
-  // // conveyor.move_velocity(0);
-  // // intake.move_velocity(0);
-  // // chassis.moveToPoint(-24, -48, 500);
-  // // chassis.turnToPoint(-10, -49, 500, {.forwards = false});
-  // // chassis.moveToPoint(-10, -49, 1000, {.forwards = false, .maxSpeed = 50});
-  // // chassis.waitUntilDone();
-  // // pros::delay(200);
-  // // goalClamp.set_value(true);
-  // // pros::delay(200);
-  // // chassis.turnToPoint(-63, -63, 200);
-  // // chassis.moveToPoint(-63, -63, 2500, {.maxSpeed = 80});
-  // // chassis.waitUntil(10);
-  // // intake.move_velocity(-12000);
-  // // chassis.waitUntilDone();
-  // // // chassis.moveToPoint(-65, -65, 1000, {.maxSpeed = 40});
-  // // conveyor.move_velocity(-12000);
-  // // chassis.turnToHeading(180, 1000, {.maxSpeed = 40});
-  // clampExtended = true;
+  if (startingPos == 0) {
+    //RED POSITIVE
+    if (path == 0) {
+
+    } else if (path == 1) {
+
+    } else if (path == 2) {
+
+    }
+   } else if (startingPos == 1) {
+    //RED NEGATIVE
+    if (path == 0) {
+
+    } else if (path == 1) {
+
+    } else if (path == 2) {
+
+    }
+  } else if (startingPos == 2) {
+    //BLUE POSITIVE
+    if (path == 0) {
+
+    } else if (path == 1) {
+
+    } else if (path == 2) {
+
+    }
+  } else if (startingPos == 3) {
+    //BLUE NEGATIVE
+    if (path == 0) {
+
+    } else if (path == 1) {
+
+    } else if (path == 2) {
+
+    }
+  } else {
+    //SKILLS
+    if (path == 0) {
+
+    } else if (path == 1) {
+
+    } else if (path == 2) {
+
+    }
+  }
 }
 
 
