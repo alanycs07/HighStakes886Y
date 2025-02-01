@@ -5,11 +5,14 @@
 // MOTORS //
 extern pros::Rotation armRotation;
 extern pros::Distance intakeDistance;
-extern pros::adi::DigitalOut leftDoinker;
-extern pros::adi::DigitalOut rightDoinker;
-extern pros::adi::DigitalOut armRetractPiston;
-extern pros::adi::DigitalOut armPiston;
+extern pros::adi::DigitalOut intakeRaise;
+extern pros::adi::DigitalOut doinker;
+extern pros::adi::DigitalOut rushClamp;
 extern pros::adi::DigitalOut goalClamp;
+
+extern pros::Optical colorSensor;
+extern pros::adi::Button limitSwitch;
+extern pros::Distance sorterDistance;
 extern pros::Controller controller;
 
 // ARM PID //
@@ -25,18 +28,29 @@ extern double integral;
 extern double armVoltage;
 extern int armTarget;
 extern double derivative;
+extern double measuredAngle;
+
+//COLOR SORT
+extern int ejectColor;
+extern int noColor;
+extern int red;
+extern int blue;
+extern bool sortingColor;
+extern bool ejectRing;
+
+extern double hue;
+extern double distance;
+
+//ARM STUFF
+extern double loadingPos;
+extern double restingPos;
+extern double wallPos;
 
 // OTHER AUTO INFO //
 extern bool autoStarted;
+extern bool spinUntilDetected;
+extern bool useAutoIntake;
 
-
-// AUTO SELECTOR // 
-// red = false, blue = true
-extern bool color;
-// for auto selector
-extern int current;
-// random other stuff like # of rings 
-extern int misc;
 
 extern int autonColor;
 extern int path;
@@ -44,7 +58,7 @@ extern int startingPos;
 
 //piston
   extern bool clampExtended;
-  extern bool armExtended;
-  extern bool rightDoinkerExtended;
-  extern bool leftDoinkerExtended;
+  extern bool doinkerExtended;
+  extern bool rushClampExtended;
+  extern bool intakeRaiseExtended;
 #endif
