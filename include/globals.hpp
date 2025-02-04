@@ -7,7 +7,7 @@ extern pros::Rotation armRotation;
 extern pros::Distance intakeDistance;
 extern pros::adi::DigitalOut intakeRaise;
 extern pros::adi::DigitalOut doinker;
-extern pros::adi::DigitalOut rushClamp;
+extern pros::adi::DigitalOut leftDoinker;
 extern pros::adi::DigitalOut goalClamp;
 
 extern pros::Optical colorSensor;
@@ -37,6 +37,7 @@ extern int red;
 extern int blue;
 extern bool sortingColor;
 extern bool ejectRing;
+extern bool sortNextRing;
 
 extern double hue;
 extern double distance;

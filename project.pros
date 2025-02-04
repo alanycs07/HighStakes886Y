@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "HangTest",
+    "project_name": "Mecha 886Y",
     "target": "v5",
     "templates": {
       "LemLib": {

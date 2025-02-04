@@ -57,7 +57,7 @@ void on_center_button() {
     pros::lcd::set_text(5, "Starting Position: Blue Negative");
   } else {
     pros::lcd::set_text(5, "Starting Position: Skills");
-  }
+  } 
 }
 
 void on_right_button() {
@@ -65,9 +65,9 @@ void on_right_button() {
 
   //POSITIVE
   if (path == 0 && (startingPos == 0 || startingPos == 2)) {
-    pros::lcd::set_text(6, "Autonomous Running: N/A");
+    pros::lcd::set_text(6, "Autonomous Running: 4+1 AWP");
   } else if (path == 1 && (startingPos == 0 || startingPos == 2)) {
-    pros::lcd::set_text(6, "Autonomous Running: N/A");
+    pros::lcd::set_text(6, "Autonomous Running: Goal Rush");
   } else if (path == 2 && (startingPos == 0 || startingPos == 2)) {
     pros::lcd::set_text(6, "Autonomous Running: N/A");
   } else if (path == 3 && (startingPos == 0 || startingPos == 2)) {
@@ -75,7 +75,7 @@ void on_right_button() {
   }
   //NEGATIVE
   else if ((path == 0) && (startingPos == 1 || startingPos == 3)) {
-    pros::lcd::set_text(6, "Autonomous Running: N/A");
+    pros::lcd::set_text(6, "Autonomous Running: Red Negative Quals");
   } else if (path == 1 && (startingPos == 1 || startingPos == 3)) {
     pros::lcd::set_text(6, "Autonomous Running: N/A");
   } else if (path == 2 && (startingPos == 1 || startingPos == 3)) {
@@ -133,15 +133,17 @@ void initialize() {
     if (armMacro == true) {
       Macro();
     }
+
+    ejectNextRing();
       // delay to save resources
-      pros::delay(20);
+      pros::delay(25);
       
     }
   });
 
   pros::lcd::set_text(4, "Sorting Color: Blue");
   pros::lcd::set_text(5, "Starting Position: Red Positive");
-  pros::lcd::set_text(6, "Autonomous Running: N/A");
+  pros::lcd::set_text(6, "Autonomous Running: 4 + 1 Positive");
 
 }
 
@@ -183,16 +185,18 @@ void autonomous() {
   if (startingPos == 0) {
     //RED POSITIVE
     if (path == 0) {
-
+      // RedPositiveAWP();
+      // redPositive6Ring();
+      BlueSigAWP();
     } else if (path == 1) {
-
+      RedRush();
     } else if (path == 2) {
 
     }
    } else if (startingPos == 1) {
     //RED NEGATIVE
     if (path == 0) {
-
+      RedNegativeQuals();
     } else if (path == 1) {
 
     } else if (path == 2) {
@@ -201,7 +205,7 @@ void autonomous() {
   } else if (startingPos == 2) {
     //BLUE POSITIVE
     if (path == 0) {
-
+      BluePositiveAWP();
     } else if (path == 1) {
 
     } else if (path == 2) {
@@ -281,7 +285,7 @@ void opcontrol() {
 
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
       rushClampExtended = !rushClampExtended;
-      rushClamp.set_value(rushClampExtended);
+      leftDoinker.set_value(rushClampExtended);
     }
 
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {

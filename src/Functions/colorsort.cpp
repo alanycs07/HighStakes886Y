@@ -44,3 +44,16 @@ void changeSortedColor() {
         ejectColor = 0;
     }
 }
+
+void ejectNextRing() {
+    if (sortNextRing == true) {
+            if (distance < 30) {
+                intake.move_velocity(-12000);
+                pros::delay(300);
+                ejectRing = false;
+            }
+            else {
+                intake.move_velocity(12000);
+            }
+    }
+}

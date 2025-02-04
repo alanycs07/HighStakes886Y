@@ -6,10 +6,10 @@
 pros::Rotation armRotation(21);
 // pros::Distance intakeDistance(21);
 pros::adi::DigitalOut intakeRaise(4);
-pros::adi::DigitalOut doinker(3);
-pros::adi::DigitalOut rushClamp(2);
+pros::adi::DigitalOut doinker(2);
+pros::adi::DigitalOut leftDoinker(3);
 pros::adi::DigitalOut goalClamp(1);
-pros::Optical colorSensor(17);
+pros::Optical colorSensor(16);
 pros::adi::Button limitSwitch(5);
 pros::Distance sorterDistance(1);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
@@ -36,6 +36,7 @@ int red = 1;
 int blue = 2;
 bool sortingColor;
 bool ejectRing = false;
+bool sortNextRing = false;
 double hue;
 double distance;
 // OTHER AUTO INFO //
@@ -45,7 +46,7 @@ bool useAutoIntake = false;
 
 
 //ARM MACRO
-double loadingPos = 19000;
+double loadingPos = 20000;
 double restingPos = 10000;
 double wallPos = 72000;
 //MO AUTO SELECTOR
