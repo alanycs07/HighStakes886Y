@@ -17,6 +17,7 @@ void RedRush();
 void redPositive6Ring();
 
 void BlueSigAWP();
+void RedSigAWP();
 void Blue7Ring();
 void Red7Ring();
 
