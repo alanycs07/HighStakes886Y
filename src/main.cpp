@@ -191,7 +191,8 @@ void autonomous() {
       // redPositive6Ring();
       //BlueSigAWP();
       // Blue7Ring();
-      RedPos4Ring();
+      Red7Ring();
+      // RedPos4Ring();
     } else if (path == 1) {
       RedRush();
     } else if (path == 2) {
