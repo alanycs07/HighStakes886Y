@@ -164,8 +164,10 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-
+  
 }
+
+
 
 
 void autonomous() {
@@ -187,7 +189,9 @@ void autonomous() {
     if (path == 0) {
       // RedPositiveAWP();
       // redPositive6Ring();
-      BlueSigAWP();
+      //BlueSigAWP();
+      // Blue7Ring();
+      RedPos4Ring();
     } else if (path == 1) {
       RedRush();
     } else if (path == 2) {

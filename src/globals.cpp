@@ -46,8 +46,8 @@ bool useAutoIntake = false;
 
 
 //ARM MACRO
-double loadingPos = 20000;
-double restingPos = 10000;
+double loadingPos = 22000;
+double restingPos = 11000;
 double wallPos = 72000;
 //MO AUTO SELECTOR
 //color 

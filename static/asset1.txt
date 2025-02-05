@@ -1,0 +1,33 @@
+-64.8, -11.4, 104.432
+-64.107, -13.275, 103.277
+-63.166, -15.038, 103.34
+-61.991, -16.654, 104.553
+-60.61, -18.099, 103.384
+-59.062, -19.363, 101.045
+-57.385, -20.45, 98.651
+-55.612, -21.374, 96.197
+-53.769, -22.15, 93.678
+-51.876, -22.793, 91.089
+-49.947, -23.32, 88.425
+-47.994, -23.75, 85.677
+-46.024, -24.092, 82.838
+-44.041, -24.353, 79.899
+-42.051, -24.55, 76.847
+-40.055, -24.68, 73.669
+-38.057, -24.76, 70.347
+-36.057, -24.786, 66.861
+-34.057, -24.77, 63.182
+-32.058, -24.712, 59.275
+-30.06, -24.616, 55.092
+-28.065, -24.486, 50.565
+-26.071, -24.323, 45.589
+-24.081, -24.13, 40
+-22.869, -24.001, 0
+-22.869, -24.001, 0
+-2.982, -21.88, 0
+endData
+119.6
+127
+200
+-64.8, -11.4, -60.982, -24.248, -42.668, -26.228, -22.869, -24.001
+#PATH.JERRYIO-DATA {"appVersion":"0.8.3","format":"LemLib v0.5","gc":{"robotWidth":12,"robotHeight":12,"robotIsHolonomic":false,"showRobot":false,"uol":2.54,"pointDensity":2,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"V5RC 2025 - High Stakes","signature":"V5RC 2025 - High Stakes","origin":{"__type":"built-in"}},"coordinateSystem":"VEX Gaming Positioning System"},"paths":[{"segments":[{"controls":[{"uid":"zYqjg1I0i1","x":-64.8,"y":-11.4,"lock":false,"visible":true,"heading":345.3,"__type":"end-point"},{"uid":"AWO0f22iQY","x":-60.98170019308111,"y":-24.248154345275765,"lock":false,"visible":true,"__type":"control"},{"uid":"LyBl4lNobE","x":-42.66774567746286,"y":-26.228041319937198,"lock":false,"visible":true,"__type":"control"},{"uid":"RJGxof599c","x":-22.868875930848564,"y":-24.00066847344309,"lock":false,"visible":true,"heading":270,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"8GPBBOiRVX"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":40,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":1,"label":"1"},"step":0.001,"from":0,"to":0.1},"maxDecelerationRate":119.6},"name":"Path","uid":"XHoq1jefcE","lock":false,"visible":true}]}
