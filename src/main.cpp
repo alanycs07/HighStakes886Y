@@ -99,7 +99,6 @@ void on_right_button() {
 void initialize() {
   spinUntilDetected = false;
 
-
   pros::lcd::initialize(); // initialize brain screen
   pros::lcd::register_btn0_cb(on_left_button);
   pros::lcd::register_btn1_cb(on_center_button);
@@ -115,6 +114,10 @@ void initialize() {
       pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
       pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
       pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
+      pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
+      pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
+      pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
+
     if (sortingColor == true) {
       if (ejectColor == red) {
         colorSort(red);
@@ -135,6 +138,22 @@ void initialize() {
     }
 
     ejectNextRing();
+
+// if (intake.get_actual_velocity() >= 0 && intake.get_actual_velocity() < 100 && abs(intake.get_current_draw()) > 2000  && !stopIntake){
+//       intake.move(-127);
+//       stopIntake = true;
+//       sortingColor = false;
+//       outakeTime = 0;
+//     }
+//     if(stopIntake){
+//       outakeTime += 25;
+//     } 
+//     if(stopIntake && outakeTime > 300){
+//       stopIntake = false;
+//       intake.move(0);
+//     }
+   
+
       // delay to save resources
       pros::delay(25);
       
@@ -265,7 +284,7 @@ void opcontrol() {
     int leftY = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
     int leftX = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));
 
-    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && !stopIntake) {
       sortingColor = true;
       
     }
@@ -273,7 +292,7 @@ void opcontrol() {
       intake.move_voltage(-12000);
       sortingColor = false;
     }
-    else {
+    else if (!stopIntake){
       intake.move_voltage(0);
       sortingColor = false;
     }

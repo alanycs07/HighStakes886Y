@@ -51,6 +51,8 @@ extern double wallPos;
 extern bool autoStarted;
 extern bool spinUntilDetected;
 extern bool useAutoIntake;
+extern bool stopIntake;
+extern int outakeTime;
 
 
 extern int autonColor;

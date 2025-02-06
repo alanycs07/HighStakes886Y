@@ -43,10 +43,12 @@ double distance;
 bool autoStarted = true;
 bool spinUntilDetected = true;
 bool useAutoIntake = false;
+bool stopIntake = false;
+int outakeTime = 0;
 
 
 //ARM MACRO
-double loadingPos = 22000;
+double loadingPos = 18000;
 double restingPos = 11000;
 double wallPos = 72000;
 //MO AUTO SELECTOR
