@@ -8,39 +8,40 @@ void BlueSigAWP () {
     armTarget = wallPos;
     pros::delay(600);
     // chassis.turnToHeading(-47, 500);    
-    chassis.turnToPoint(53, -2, 500);
+    chassis.turnToPoint(46, -2, 650);
     // arm.move_voltage(-12000);
     armTarget = restingPos;
-    pros::delay(700);
-    arm.move_voltage(0);
-    chassis.moveToPoint(53, -2, 700);
+    chassis.waitUntilDone();
+    pros::delay(100);
+
+    chassis.moveToPoint(47, -2, 700, {.maxSpeed = 40});
     intakeRaise.set_value(true);
     useAutoIntake = true;
     spinUntilDetected = true;
     chassis.waitUntilDone();
     intakeRaise.set_value(false);
     pros::delay(350);
-    chassis.turnToPoint(27, -25, 600,{.forwards = false});
-    chassis.moveToPoint(27, -25, 1200, {.forwards = false, .maxSpeed = 80});
+    chassis.turnToPoint(23, -30, 600,{.forwards = false});
+    chassis.moveToPoint(23, -30, 1200, {.forwards = false, .maxSpeed = 80});
     chassis.waitUntilDone();
     pros::delay(80);
     goalClamp.set_value(true);
     useAutoIntake = false;
     spinUntilDetected = false;
-    chassis.turnToPoint(12, -9, 600); //turn to middle 4 rings
+    chassis.turnToPoint(8, -15, 600); //turn to middle 4 rings
     intake.move_velocity(0);
-    chassis.moveToPoint(11.7, -9, 1000);
+    chassis.moveToPoint(8, -15, 1000);
     chassis.waitUntilDone();
     leftDoinker.set_value(true);
     pros::delay(100);
-    chassis.moveToPoint(29, -25, 1000, {.forwards = false, .maxSpeed = 100});
+    chassis.moveToPoint(29, -30, 1000, {.forwards = false, .maxSpeed = 100});
     chassis.waitUntilDone();
     leftDoinker.set_value(false);
     pros::delay(100);
-    chassis.turnToPoint(19.5, -22.7, 200);
+    chassis.turnToPoint(18, -29, 400);
     chassis.waitUntilDone();
     sortingColor = true;
-    chassis.moveToPoint(16, -21, 700);
+    chassis.moveToPoint(15, -29, 700);
     chassis.waitUntilDone();
     pros::delay(300);
     
@@ -54,8 +55,8 @@ void BlueSigAWP () {
     spinUntilDetected = true;
     chassis.waitUntilDone();
     pros::delay(100);
-    chassis.turnToPoint(11.5, -48, 700, {.forwards = false});
-    chassis.moveToPoint(11.5, -48, 1000, {.forwards = false, .maxSpeed = 50});
+    chassis.turnToPoint(9, -50, 700, {.forwards = false});
+    chassis.moveToPoint(9, -50, 1000, {.forwards = false, .maxSpeed = 50});
     chassis.waitUntilDone();
     goalClamp.set_value(true);
     useAutoIntake = false;

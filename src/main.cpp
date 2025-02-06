@@ -208,9 +208,9 @@ void autonomous() {
     if (path == 0) {
       // RedPositiveAWP();
       // redPositive6Ring();
-      //BlueSigAWP();
+      BlueSigAWP();
       // Blue7Ring();
-      Red7Ring();
+      //Red7Ring();
       // RedPos4Ring();
     } else if (path == 1) {
       RedRush();
