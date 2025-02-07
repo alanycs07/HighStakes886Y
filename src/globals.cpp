@@ -37,6 +37,7 @@ int red = 1;
 int blue = 2;
 bool sortingColor;
 bool sortingColorMem;
+bool spinUntilDetectedMem;
 bool ejectRing = false;
 bool sortNextRing = false;
 double hue;
@@ -50,6 +51,7 @@ bool stopIntake = false;
 int outakeTime = 0;
 int current_peak = 0;
 int outtakeStartTime = 0;
+int detected_amount = 0;
 
 
 //ARM MACRO

@@ -27,19 +27,31 @@ void colorSort(int sortedColor) {
     }
 
     // if (sortedColor == red) {
-    //     if (red_stuff.height * red_stuff.width > 20000) {
-    //         // ejectRing = true;
-    //         intake.move_velocity(0);
-    //         sortingColor = false;
-    //     }
+         if (red_stuff.height * red_stuff.width > 20000) {
+             if(detected_amount < 3){
+                 detected_amount += 1;
+             }else{
+                 // ejectRing = true;
+                 intake.move_velocity(0);
+                 sortingColor = false;
+             }
+         }
     // }
 
     // else if (sortedColor == blue) {
-        if (blue_stuff.height * blue_stuff.width > 20000) {
-            // ejectRing = true;
-            intake.move_velocity(0);
-            sortingColor = false;
+        else if (blue_stuff.height * blue_stuff.width > 20000) {
+            if(detected_amount < 3){
+                detected_amount += 1;
+
+            }else{
+                // ejectRing = true;
+                intake.move_velocity(0);
+                sortingColor = false;
+            }
+        } else{
+            detected_amount = 0;
         }
+            
     // }  
     else {
         ejectRing = false;

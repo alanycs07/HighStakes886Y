@@ -52,13 +52,14 @@ extern double wallPos;
 // OTHER AUTO INFO //
 extern bool autoStarted;
 extern bool spinUntilDetected;
+extern bool spinUntilDetectedMem;
 extern bool useAutoIntake;
 extern bool useAutoIntakeMem;
 extern bool stopIntake;
 extern int outakeTime;
 extern int current_peak;
 extern int outtakeStartTime;
-
+extern int detected_amount;
 
 extern int autonColor;
 extern int path;

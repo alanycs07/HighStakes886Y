@@ -158,7 +158,10 @@ void initialize() {
       stopIntake = true;
       sortingColorMem = sortingColor;
       useAutoIntakeMem = useAutoIntake;
+      spinUntilDetectedMem = spinUntilDetected;
       sortingColor = false;
+      useAutoIntake = false;
+      spinUntilDetected = false;
       outtakeStartTime = pros::millis();
       current_peak = 0;
     }
@@ -169,6 +172,7 @@ void initialize() {
         stopIntake = false;
         sortingColor = sortingColorMem;
         useAutoIntake = useAutoIntakeMem;
+        spinUntilDetected = spinUntilDetectedMem;
       }
     }
 
