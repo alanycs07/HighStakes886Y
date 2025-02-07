@@ -140,8 +140,8 @@ void initialize() {
 
     ejectNextRing();
 
-
-if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() > 0){
+if ((armTarget != loadingPos) || (armMacro == false)) {
+  if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() > 0){
       if(!stopIntake){
         current_peak += 1;
       }
@@ -156,16 +156,20 @@ if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && int
       else{previous_state = 0;}
       stopIntake = true;
       sortingColor = false;
+      useAutoIntake = false;
+      spinUntilDetected = false;
       outtakeStartTime = pros::millis();
       current_peak = 0;
     }
 
     if(stopIntake){
       if(pros::millis() - outtakeStartTime >= 150){
-        intake.move(previous_state);
+
         stopIntake = false;
       }
     }
+}
+
 
 // if (intake.get_actual_velocity() >= 0 && intake.get_actual_velocity() < 100 && abs(intake.get_current_draw()) > 2000  && !stopIntake){
 //       intake.move(-127);
