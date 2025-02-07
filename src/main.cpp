@@ -104,6 +104,9 @@ void initialize() {
   pros::lcd::register_btn0_cb(on_left_button);
   pros::lcd::register_btn1_cb(on_center_button);
   pros::lcd::register_btn2_cb(on_right_button);
+
+  // vision_sensor.set_led(0xFFFFFF);
+  color_sensor.set_led_pwm(100);
   chassis.calibrate(); // calibrate sensors
   // intakeRaise.set_value(1);
   // armRotation.reset();
@@ -120,15 +123,16 @@ void initialize() {
       pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
 
     if (sortingColor == true) {
-      if (ejectColor == red) {
-        colorSort(red);
-      }
-      else if (ejectColor == blue) {
-        colorSort(blue);
-      }
-      else {
-        colorSort(noColor);
-      }
+      // if (ejectColor == red) {
+      //   colorSort(red);
+      // }
+      // else if (ejectColor == blue) {
+      //   colorSort(blue);
+      // }
+      // else {
+      //   colorSort(noColor);
+      // }
+      colorSort(red);
     }
     if (useAutoIntake == true) {
       loadRing();
@@ -219,70 +223,73 @@ void competition_initialize() {
 
 
 void autonomous() {
-//COLOR SORT//
-  if (autonColor == 0) {
-    //EJECT BLUE
-    ejectColor = blue;
-  }
-  else if (autonColor == 1) {
-    //EJECT RED
-    ejectColor = red;
-  }
-  else {
-    ejectColor = noColor;
-  }
+// //COLOR SORT//
+//   if (autonColor == 0) {
+//     //EJECT BLUE
+//     ejectColor = blue;
+//   }
+//   else if (autonColor == 1) {
+//     //EJECT RED
+//     ejectColor = red;
+//   }
+//   else {
+//     ejectColor = noColor;
+//   }
 
-  if (startingPos == 0) {
-    //RED POSITIVE
-    if (path == 0) {
-      // RedPositiveAWP();
-      // redPositive6Ring();
-      BlueSigAWP();
-      // Blue7Ring();
-      //Red7Ring();
-      // RedPos4Ring();
-    } else if (path == 1) {
-      RedRush();
-    } else if (path == 2) {
+//   if (startingPos == 0) {
+//     //RED POSITIVE
+//     if (path == 0) {
+//       // RedPositiveAWP();
+//       // redPositive6Ring();
+//       BlueSigAWP();
+//       // Blue7Ring();
+//       //Red7Ring();
+//       // RedPos4Ring();
+//     } else if (path == 1) {
+//       RedRush();
+//     } else if (path == 2) {
 
-    }
-   } else if (startingPos == 1) {
-    //RED NEGATIVE
-    if (path == 0) {
-      RedNegativeQuals();
-    } else if (path == 1) {
+//     }
+//    } else if (startingPos == 1) {
+//     //RED NEGATIVE
+//     if (path == 0) {
+//       RedNegativeQuals();
+//     } else if (path == 1) {
 
-    } else if (path == 2) {
+//     } else if (path == 2) {
 
-    }
-  } else if (startingPos == 2) {
-    //BLUE POSITIVE
-    if (path == 0) {
-      BluePositiveAWP();
-    } else if (path == 1) {
+//     }
+//   } else if (startingPos == 2) {
+//     //BLUE POSITIVE
+//     if (path == 0) {
+//       BluePositiveAWP();
+//     } else if (path == 1) {
 
-    } else if (path == 2) {
+//     } else if (path == 2) {
 
-    }
-  } else if (startingPos == 3) {
-    //BLUE NEGATIVE
-    if (path == 0) {
+//     }
+//   } else if (startingPos == 3) {
+//     //BLUE NEGATIVE
+//     if (path == 0) {
 
-    } else if (path == 1) {
+//     } else if (path == 1) {
 
-    } else if (path == 2) {
+//     } else if (path == 2) {
 
-    }
-  } else {
-    //SKILLS
-    if (path == 0) {
+//     }
+//   } else {
+//     //SKILLS
+//     if (path == 0) {
 
-    } else if (path == 1) {
+//     } else if (path == 1) {
 
-    } else if (path == 2) {
+//     } else if (path == 2) {
 
-    }
-  }
+//     }
+//   }
+
+ejectColor = red;
+sortingColor = true;
 }
 
 
@@ -301,7 +308,8 @@ void autonomous() {
  */
 
 void opcontrol() {
-  ejectColor = noColor;
+  // ejectColor = noColor;
+  // sortedColor = blue;
   useAutoIntake = false;
   autoStarted = false;
   // bool isExtended1 = true; // remove for DRIVER SKILLS

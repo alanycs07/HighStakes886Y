@@ -12,6 +12,7 @@ pros::adi::DigitalOut goalClamp(1);
 pros::Vision vision_sensor(16);
 pros::adi::Button limitSwitch(5);
 pros::Distance sorterDistance(1);
+pros::Optical color_sensor(5);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 // ARM PID //
 bool armMacro = false;

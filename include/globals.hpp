@@ -11,6 +11,7 @@ extern pros::adi::DigitalOut leftDoinker;
 extern pros::adi::DigitalOut goalClamp;
 
 extern pros::adi::Button limitSwitch;
+extern pros::Optical color_sensor;
 extern pros::Distance sorterDistance;
 extern pros::Vision vision_sensor;
 extern pros::Controller controller;
