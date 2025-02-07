@@ -49,6 +49,7 @@ bool stopIntake = false;
 int outakeTime = 0;
 int current_peak = 0;
 int outtakeStartTime = 0;
+int detected_amount = 0;
 
 
 //ARM MACRO

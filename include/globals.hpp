@@ -39,6 +39,7 @@ extern int blue;
 extern bool sortingColor;
 extern bool ejectRing;
 extern bool sortNextRing;
+extern int detected_amount;
 
 extern double hue;
 extern double distance;

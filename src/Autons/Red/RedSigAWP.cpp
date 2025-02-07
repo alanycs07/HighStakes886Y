@@ -8,7 +8,7 @@ void RedSigAWP () {
     armTarget = wallPos;
     pros::delay(600);
     // chassis.turnToHeading(-47, 500);    
-    chassis.turnToPoint(-46, -2, 650);
+    chassis.turnToPoint(-46, -2, 550);
     // arm.move_voltage(-12000);
     armTarget = restingPos;
     chassis.waitUntilDone();
@@ -20,7 +20,7 @@ void RedSigAWP () {
     spinUntilDetected = true;
     chassis.waitUntilDone();
     intakeRaise.set_value(false);
-    pros::delay(350);
+    pros::delay(300);
     chassis.turnToPoint(-23, -30, 600,{.forwards = false});
     chassis.moveToPoint(-23, -30, 1200, {.forwards = false, .maxSpeed = 80});
     chassis.waitUntilDone();
@@ -28,9 +28,9 @@ void RedSigAWP () {
     goalClamp.set_value(true);
     useAutoIntake = false;
     spinUntilDetected = false;
-    chassis.turnToPoint(-8, -15, 600); //turn to middle 4 rings
+    chassis.turnToPoint(-9.5, -15, 600); //turn to middle 4 rings
     intake.move_velocity(0);
-    chassis.moveToPoint(-8, -15, 1000);
+    chassis.moveToPoint(-9.5, -15, 700);
     chassis.waitUntilDone();
     doinker.set_value(true);
     pros::delay(100);
@@ -50,20 +50,20 @@ void RedSigAWP () {
     pros::delay(200);
     goalClamp.set_value(false);
     chassis.turnToPoint(-28.5, -48.5, 600);
-    chassis.moveToPoint(-28.5, -48.5, 1000);
+    chassis.moveToPoint(-27, -50, 900);
     useAutoIntake = true;
     spinUntilDetected = true;
     chassis.waitUntilDone();
     pros::delay(100);
-    chassis.turnToPoint(-9, -50, 700, {.forwards = false});
-    chassis.moveToPoint(-9, -50, 1000, {.forwards = false, .maxSpeed = 50});
+    chassis.turnToPoint(-9, -51, 900, {.forwards = false});
+    chassis.moveToPoint(-9.4, -51, 900, {.forwards = false, .maxSpeed = 50});
     chassis.waitUntilDone();
     goalClamp.set_value(true);
     useAutoIntake = false;
     spinUntilDetected = false;
     sortingColor = true;
-    chassis.moveToPose(-20, -18, 20, 1200, {.minSpeed = 70});
-    chassis.moveToPoint(-20, -18, 1000);
+    chassis.moveToPose(-18, -18, 18, 1200, {.minSpeed = 80});
+    chassis.moveToPoint(-18, -18, 1000);
 
 
 

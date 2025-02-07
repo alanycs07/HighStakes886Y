@@ -29,11 +29,11 @@ void Red7Ring(){
     chassis.turnToPoint(-23, 50, 500);
     chassis.moveToPoint(-23, 50, 700);
     chassis.turnToHeading(250, 400);
-    chassis.moveToPose(-57.5, 56, 310, 1000, {.lead = 0.3, .minSpeed = 60});
+    chassis.moveToPose(-58, 60, 310, 1000, {.lead = 0.3, .minSpeed = 70});
     chassis.moveToPoint(-70, 65, 900, {.maxSpeed = 60});
     chassis.waitUntilDone();
     pros::delay(200);
-    chassis.moveToPoint(-57.5, 56, 600, {.forwards = false, .maxSpeed = 60});
+    chassis.moveToPoint(-58, 60, 600, {.forwards = false, .maxSpeed = 70});
     chassis.waitUntilDone();
     pros::delay(450);
     chassis.moveToPoint(-70, 65, 900, {.maxSpeed = 60});
@@ -45,10 +45,10 @@ void Red7Ring(){
     chassis.waitUntilDone();
     pros::delay(200);
     chassis.turnToPoint(-44, 0, 600);
-    chassis.moveToPoint(-44, 0, 800, {.maxSpeed = 60});
+    chassis.moveToPoint(-44, 0, 800, {.maxSpeed = 80});
     chassis.waitUntilDone();
     pros::delay(200);
-    chassis.moveToPoint(-44, -50, 1000, {.minSpeed = 100});
+    chassis.moveToPoint(-44, -50, 1000, {.minSpeed = 85});
 
     
 } 

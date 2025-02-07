@@ -37,11 +37,11 @@ ASSET(clampGoalCurve_txt);
 void on_left_button() {
   autonColor = (autonColor + 1) % 3;
   if (autonColor == 0) {
-    pros::lcd::set_text(4, "Color: Blue");
+    pros::lcd::set_text(4, "Sorting Color: Blue");
   } else if (autonColor == 1){
-    pros::lcd::set_text(4, "Color: Red");
+    pros::lcd::set_text(4, "Sorting Color: Red");
   } else {
-    pros::lcd::set_text(4, "Color: No Sorting");
+    pros::lcd::set_text(4, "Sorting Color: No Sorting");
   }
 }
 
@@ -65,9 +65,9 @@ void on_right_button() {
 
   //POSITIVE
   if (path == 0 && (startingPos == 0 || startingPos == 2)) {
-    pros::lcd::set_text(6, "Autonomous Running: 4+1 AWP");
+    pros::lcd::set_text(6, "Autonomous Running: SIG AWP");
   } else if (path == 1 && (startingPos == 0 || startingPos == 2)) {
-    pros::lcd::set_text(6, "Autonomous Running: Goal Rush");
+    pros::lcd::set_text(6, "Autonomous Running: Positive 4 Ring");
   } else if (path == 2 && (startingPos == 0 || startingPos == 2)) {
     pros::lcd::set_text(6, "Autonomous Running: N/A");
   } else if (path == 3 && (startingPos == 0 || startingPos == 2)) {
@@ -75,7 +75,7 @@ void on_right_button() {
   }
   //NEGATIVE
   else if ((path == 0) && (startingPos == 1 || startingPos == 3)) {
-    pros::lcd::set_text(6, "Autonomous Running: Red Negative Quals");
+    pros::lcd::set_text(6, "Autonomous Running: Negative 7 Ring");
   } else if (path == 1 && (startingPos == 1 || startingPos == 3)) {
     pros::lcd::set_text(6, "Autonomous Running: N/A");
   } else if (path == 2 && (startingPos == 1 || startingPos == 3)) {
@@ -118,9 +118,9 @@ void initialize() {
       pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
       pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
       pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
-      pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
-      pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
-      pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
+      // pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
+      // pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
+      // pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
 
     if (sortingColor == true) {
       if (ejectColor == red) {
@@ -143,7 +143,7 @@ void initialize() {
 
     ejectNextRing();
 
-if ((armTarget != loadingPos) || (armMacro == false)) {
+if (autoStarted == true) {
   if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() > 0){
       if(!stopIntake){
         current_peak += 1;
@@ -202,7 +202,7 @@ if ((armTarget != loadingPos) || (armMacro == false)) {
 
   pros::lcd::set_text(4, "Sorting Color: Blue");
   pros::lcd::set_text(5, "Starting Position: Red Positive");
-  pros::lcd::set_text(6, "Autonomous Running: 4 + 1 Positive");
+  pros::lcd::set_text(6, "Autonomous Running: Sig AWP");
 
 }
 
@@ -248,19 +248,21 @@ void autonomous() {
     if (path == 0) {
       // RedPositiveAWP();
       // redPositive6Ring();
-      BlueSigAWP();
+      // BlueSigAWP();
+      RedSigAWP();
       // Blue7Ring();
       //Red7Ring();
-      // RedPos4Ring();
+      //  RedPos4Ring();
     } else if (path == 1) {
-      RedRush();
+      // RedRush();
+      RedPos4Ring();
     } else if (path == 2) {
-
+      
     }
    } else if (startingPos == 1) {
     //RED NEGATIVE
     if (path == 0) {
-      RedNegativeQuals();
+      Red7Ring();
     } else if (path == 1) {
 
     } else if (path == 2) {
@@ -269,16 +271,16 @@ void autonomous() {
   } else if (startingPos == 2) {
     //BLUE POSITIVE
     if (path == 0) {
-      BluePositiveAWP();
+      BlueSigAWP();
     } else if (path == 1) {
-
+      // BluePos4Ring();
     } else if (path == 2) {
 
     }
   } else if (startingPos == 3) {
     //BLUE NEGATIVE
     if (path == 0) {
-
+      Blue7Ring();
     } else if (path == 1) {
 
     } else if (path == 2) {
@@ -314,6 +316,7 @@ void autonomous() {
 void opcontrol() {
   ejectColor = noColor;
   useAutoIntake = false;
+  spinUntilDetected = false;
   autoStarted = false;
   // bool isExtended1 = true; // remove for DRIVER SKILLS
   arm.set_brake_mode(pros::MotorBrake::hold);
