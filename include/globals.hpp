@@ -13,6 +13,7 @@ extern pros::adi::DigitalOut goalClamp;
 extern pros::Optical colorSensor;
 extern pros::adi::Button limitSwitch;
 extern pros::Distance sorterDistance;
+extern pros::Vision vision_sensor;
 extern pros::Controller controller;
 
 // ARM PID //

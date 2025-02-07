@@ -100,6 +100,9 @@ void initialize() {
   spinUntilDetected = false;
   int previous_state = 0;
 
+  bool sortingColorMem;
+  bool useAutoIntakeMem;
+  bool spinUntilDetectedMem;
   pros::lcd::initialize(); // initialize brain screen
   pros::lcd::register_btn0_cb(on_left_button);
   pros::lcd::register_btn1_cb(on_center_button);
@@ -151,20 +154,25 @@ if ((armTarget != loadingPos) || (armMacro == false)) {
 
     if(current_peak > 4 && !stopIntake && !armMacro){
       intake.move(-127);
-      if(intake.get_voltage() > 5000){previous_state = 127;}
-      else if(intake.get_voltage() < -5000){previous_state = -127;}
-      else{previous_state = 0;}
+      // if(intake.get_voltage() > 5000){previous_state = 127;}
+      // else if(intake.get_voltage() < -5000){previous_state = -127;}
+      // else{previous_state = 0;}
       stopIntake = true;
       sortingColor = false;
       useAutoIntake = false;
       spinUntilDetected = false;
+      sortingColorMem = sortingColor;
+      useAutoIntakeMem = useAutoIntake;
+      spinUntilDetectedMem = spinUntilDetected;
       outtakeStartTime = pros::millis();
       current_peak = 0;
     }
 
     if(stopIntake){
       if(pros::millis() - outtakeStartTime >= 150){
-
+        sortingColor = sortingColorMem;
+        useAutoIntake = useAutoIntakeMem;
+        spinUntilDetected = spinUntilDetectedMem;
         stopIntake = false;
       }
     }

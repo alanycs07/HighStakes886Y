@@ -1,6 +1,7 @@
 #include "globals.hpp"
 #include "pros/rotation.hpp"
 #include "pros/adi.hpp"
+#include "pros/vision.hpp"
 
 // MOTORS //
 pros::Rotation armRotation(21);
@@ -9,7 +10,8 @@ pros::adi::DigitalOut intakeRaise(4);
 pros::adi::DigitalOut doinker(2);
 pros::adi::DigitalOut leftDoinker(3);
 pros::adi::DigitalOut goalClamp(1);
-pros::Optical colorSensor(16);
+pros::Optical colorSensor(5);
+pros::Vision vision_sensor(16);
 pros::adi::Button limitSwitch(5);
 pros::Distance sorterDistance(1);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
