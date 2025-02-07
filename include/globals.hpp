@@ -10,9 +10,9 @@ extern pros::adi::DigitalOut doinker;
 extern pros::adi::DigitalOut leftDoinker;
 extern pros::adi::DigitalOut goalClamp;
 
-extern pros::Optical colorSensor;
 extern pros::adi::Button limitSwitch;
 extern pros::Distance sorterDistance;
+extern pros::Vision vision_sensor;
 extern pros::Controller controller;
 
 // ARM PID //
@@ -36,6 +36,7 @@ extern int noColor;
 extern int red;
 extern int blue;
 extern bool sortingColor;
+extern bool sortingColorMem;
 extern bool ejectRing;
 extern bool sortNextRing;
 
@@ -51,6 +52,7 @@ extern double wallPos;
 extern bool autoStarted;
 extern bool spinUntilDetected;
 extern bool useAutoIntake;
+extern bool useAutoIntakeMem;
 extern bool stopIntake;
 extern int outakeTime;
 extern int current_peak;

@@ -1,10 +1,12 @@
 #include "autons.hpp"
 #include "lemlibglobals.hpp"
 #include "globals.hpp"
+#include "pros/vision.h"
 
 void colorSort(int sortedColor) {
-    colorSensor.set_led_pwm(100);
-    hue = colorSensor.get_hue();
+    pros::vision_object_s_t red_stuff = vision_sensor.get_by_sig(0, 1);
+    pros::vision_object_s_t blue_stuff = vision_sensor.get_by_sig(0, 2);
+
     distance = sorterDistance.get_distance();
 
     if(ejectRing == false) {
@@ -21,13 +23,13 @@ void colorSort(int sortedColor) {
     }
 
     if (sortedColor == red) {
-        if ((hue > 355) || (hue < 15)) {
+        if (red_stuff.height * red_stuff.width > 100000000) {
             ejectRing = true;
         }
     }
 
     else if (sortedColor == blue) {
-        if ((hue > 200) && ( hue < 230)) {
+        if (blue_stuff.height * blue_stuff.width > 100000000) {
             ejectRing = true;
         }
     }  
@@ -47,13 +49,13 @@ void changeSortedColor() {
 
 void ejectNextRing() {
     if (sortNextRing == true) {
-            if (distance < 30) {
-                intake.move_velocity(-12000);
-                pros::delay(300);
-                ejectRing = false;
-            }
-            else {
-                intake.move_velocity(12000);
-            }
+        if (distance < 30) {
+            intake.move_velocity(-12000);
+            pros::delay(300);
+            ejectRing = false;
+        }
+        else {
+            intake.move_velocity(12000);
+        }
     }
 }

@@ -141,7 +141,7 @@ void initialize() {
     ejectNextRing();
 
 
-if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() > 0){
+    if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() > 0){
       if(!stopIntake){
         current_peak += 1;
       }
@@ -151,10 +151,9 @@ if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && int
 
     if(current_peak > 4 && !stopIntake && !armMacro){
       intake.move(-127);
-      if(intake.get_voltage() > 5000){previous_state = 127;}
-      else if(intake.get_voltage() < -5000){previous_state = -127;}
-      else{previous_state = 0;}
       stopIntake = true;
+      sortingColorMem = sortingColor;
+      useAutoIntakeMem = useAutoIntake;
       sortingColor = false;
       outtakeStartTime = pros::millis();
       current_peak = 0;
@@ -162,8 +161,10 @@ if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && int
 
     if(stopIntake){
       if(pros::millis() - outtakeStartTime >= 150){
-        intake.move(previous_state);
+        intake.move(0);
         stopIntake = false;
+        sortingColor = sortingColorMem;
+        useAutoIntake = useAutoIntakeMem;
       }
     }
 
@@ -309,8 +310,8 @@ void opcontrol() {
   while (true) {
     int rightY = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
     int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-    int leftY = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
-    int leftX = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));
+    int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+    int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
 
     if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && !stopIntake) {
       sortingColor = true;
