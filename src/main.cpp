@@ -139,6 +139,30 @@ void initialize() {
 
     ejectNextRing();
 
+
+if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() >= 0){
+      if(!stopIntake){
+        current_peak += 1;
+      }
+    }else{
+      current_peak = 0;
+    }
+
+    if(current_peak > 4 && !stopIntake){
+      intake.move(-127);
+      stopIntake = true;
+      sortingColor = false;
+      outtakeStartTime = pros::millis();
+      current_peak = 0;
+    }
+
+    if(stopIntake){
+      if(pros::millis() - outtakeStartTime >= 150){
+        intake.move(0);
+        stopIntake = false;
+      }
+    }
+
 // if (intake.get_actual_velocity() >= 0 && intake.get_actual_velocity() < 100 && abs(intake.get_current_draw()) > 2000  && !stopIntake){
 //       intake.move(-127);
 //       stopIntake = true;

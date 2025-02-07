@@ -53,6 +53,8 @@ extern bool spinUntilDetected;
 extern bool useAutoIntake;
 extern bool stopIntake;
 extern int outakeTime;
+extern int current_peak;
+extern int outtakeStartTime;
 
 
 extern int autonColor;

@@ -45,6 +45,8 @@ bool spinUntilDetected = true;
 bool useAutoIntake = false;
 bool stopIntake = false;
 int outakeTime = 0;
+int current_peak = 0;
+int outtakeStartTime = 0;
 
 
 //ARM MACRO
