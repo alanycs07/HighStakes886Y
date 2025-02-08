@@ -290,10 +290,12 @@ void autonomous() {
     //SKILLS
     if (path == 0) {
 
+      skills();
+
     } else if (path == 1) {
-
+      noAuto();
     } else if (path == 2) {
-
+      leaveLine();
     }
   }
 }

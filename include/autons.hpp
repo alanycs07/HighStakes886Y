@@ -23,4 +23,8 @@ void Blue7Ring();
 void Red7Ring();
 
 void RedPos4Ring();
+
+void skills();
+void noAuto();
+void leaveLine();
 #endif
