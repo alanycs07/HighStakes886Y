@@ -50,5 +50,6 @@ void Red7Ring(){
     pros::delay(200);
     chassis.moveToPoint(-44, -50, 1000, {.minSpeed = 85});
 
+    clampExtended = true;
     
 } 

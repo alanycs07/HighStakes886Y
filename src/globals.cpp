@@ -53,7 +53,8 @@ int detected_amount = 0;
 
 
 //ARM MACRO
-double loadingPos = 18000;
+//double loadingPos = 18000;
+double loadingPos = 23000;
 double restingPos = 11000;
 double wallPos = 72000;
 //MO AUTO SELECTOR

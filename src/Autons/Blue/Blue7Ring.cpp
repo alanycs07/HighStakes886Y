@@ -24,6 +24,6 @@ void Blue7Ring(){
     chassis.turnToHeading(305, 700);
     // chassis.waitUntilDone();
     // sortingColor = true;
-    // chassis.follow(BlueNegativeRingStackCurve_txt, 10, 1500);
+    // chassis.follow(BlueNegativeRingStackCurve_txt, 10, 1500); 
 
 }

@@ -32,11 +32,11 @@ void BlueSigAWP () {
     intake.move_velocity(0);
     chassis.moveToPoint(9.5, -15, 700);
     chassis.waitUntilDone();
-    doinker.set_value(true);
+    leftDoinker.set_value(true);
     pros::delay(100);
     chassis.moveToPoint(29, -30, 1000, {.forwards = false, .maxSpeed = 100});
     chassis.waitUntilDone();
-    doinker.set_value(false);
+    leftDoinker.set_value(false);
     pros::delay(100);
     chassis.turnToPoint(18, -29, 400);
     chassis.waitUntilDone();
@@ -66,6 +66,8 @@ void BlueSigAWP () {
     chassis.moveToPose(18, -18, 342, 1200, {.minSpeed = 80});
     chassis.moveToPoint(18, -18, 1000);
 
+
+    clampExtended = true;
 
 
 }   

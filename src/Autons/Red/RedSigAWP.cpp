@@ -66,5 +66,6 @@ void RedSigAWP () {
     chassis.moveToPoint(-18, -18, 1000);
 
 
+    clampExtended = true;
 
 }   

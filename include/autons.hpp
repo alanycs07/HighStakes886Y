@@ -6,6 +6,7 @@ void changeSortedColor();
 void loadRing();
 void ejectNextRing();
 void Macro();
+void allianceStakeAlign();
 
 //AUTONS
 //RED

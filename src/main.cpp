@@ -350,7 +350,7 @@ void opcontrol() {
       doinker.set_value(doinkerExtended);
     }
 
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
       rushClampExtended = !rushClampExtended;
       leftDoinker.set_value(rushClampExtended);
     }
@@ -361,9 +361,30 @@ void opcontrol() {
     }
 
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
-      changeSortedColor();
+      ejectColor = noColor;
     }
-    
+
+    else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+      ejectColor = red;
+    }
+    else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+      ejectColor = blue;
+    }
+
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
+      allianceStakeAlign();
+    }
+
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+      spinUntilDetected = true;
+      // useAutoIntake = true;
+      loadRing();
+    }
+    else {
+      spinUntilDetected = false;
+      useAutoIntake = false;
+    }
+
     chassis.arcade(leftY, leftX);
 
 //ARM BELOW
