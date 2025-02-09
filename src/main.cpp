@@ -118,9 +118,9 @@ void initialize() {
       pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
       pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
       pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
-      // pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
-      // pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
-      // pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
+      pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
+      pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
+      pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
 
     if (sortingColor == true) {
       if (ejectColor == red) {
@@ -144,7 +144,7 @@ void initialize() {
     ejectNextRing();
 
 if (autoStarted == true) {
-  if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() > 0){
+  if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() >= 0){
       if(!stopIntake){
         current_peak += 1;
       }
@@ -170,9 +170,10 @@ if (autoStarted == true) {
 
     if(stopIntake){
       if(pros::millis() - outtakeStartTime >= 150){
-        sortingColor = sortingColorMem;
-        useAutoIntake = useAutoIntakeMem;
-        spinUntilDetected = spinUntilDetectedMem;
+        // sortingColor = sortingColorMem;
+        // useAutoIntake = useAutoIntakeMem;
+        // spinUntilDetected = spinUntilDetectedMem;
+        sortingColor = true;
         stopIntake = false;
       }
     }
@@ -231,74 +232,77 @@ void competition_initialize() {
 
 void autonomous() {
 //COLOR SORT//
-  if (autonColor == 0) {
-    //EJECT BLUE
-    // ejectColor = blue;
-    ejectColor = red;
-  }
-  else if (autonColor == 1) {
-    //EJECT RED
-    ejectColor = red;
-  }
-  else {
-    ejectColor = noColor;
-  }
+  // if (autonColor == 0) {
+  //   //EJECT BLUE
+  //   ejectColor = blue;
+  //   // ejectColor = red;
+  // }
+  // else if (autonColor == 1) {
+  //   //EJECT RED
+  //   ejectColor = red;
+  // }
+  // else {
+  //   ejectColor = noColor;
+  // }
 
-  if (startingPos == 0) {
-    //RED POSITIVE
-    if (path == 0) {
-      // RedPositiveAWP();
-      // redPositive6Ring();
-      //BlueSigAWP();
-      // RedSigAWP();
-      Blue7Ring();
-      // Red7Ring();
-      //  RedPos4Ring();
-    } else if (path == 1) {
-      // RedRush();
-      RedPos4Ring();
-    } else if (path == 2) {
+  // if (startingPos == 0) {
+  //   //RED POSITIVE
+  //   if (path == 0) {
+  //     // RedPositiveAWP();
+  //     // redPositive6Ring();
+  //     //BlueSigAWP();
+  //     RedSigAWP();
+  //     // Blue7Ring();
+  //     // Red7Ring();
+  //     //  RedPos4Ring();
+  //   } else if (path == 1) {
+  //     // RedRush();
+  //     RedPos4Ring();
+  //   } else if (path == 2) {
       
-    }
-   } else if (startingPos == 1) {
-    //RED NEGATIVE
-    if (path == 0) {
-      Red7Ring();
-    } else if (path == 1) {
+  //   }
+  //  } else if (startingPos == 1) {
+  //   //RED NEGATIVE
+  //   if (path == 0) {
+  //     Red7Ring();
+  //   } else if (path == 1) {
 
-    } else if (path == 2) {
+  //   } else if (path == 2) {
 
-    }
-  } else if (startingPos == 2) {
-    //BLUE POSITIVE
-    if (path == 0) {
-      BlueSigAWP();
-    } else if (path == 1) {
-      // BluePos4Ring();
-    } else if (path == 2) {
+  //   }
+  // } else if (startingPos == 2) {
+  //   //BLUE POSITIVE
+  //   if (path == 0) {
+  //     BlueSigAWP();
+  //   } else if (path == 1) {
+  //     // BluePos4Ring();
+  //   } else if (path == 2) {
 
-    }
-  } else if (startingPos == 3) {
-    //BLUE NEGATIVE
-    if (path == 0) {
-      Blue7Ring();
-    } else if (path == 1) {
+  //   }
+  // } else if (startingPos == 3) {
+  //   //BLUE NEGATIVE
+  //   if (path == 0) {
+  //     Blue7Ring();
+  //   } else if (path == 1) {
 
-    } else if (path == 2) {
+  //   } else if (path == 2) {
 
-    }
-  } else {
-    //SKILLS
-    if (path == 0) {
+  //   }
+  // } else {
+  //   //SKILLS
+  //   if (path == 0) {
 
-      skills();
+  //     skills();
 
-    } else if (path == 1) {
-      noAuto();
-    } else if (path == 2) {
-      leaveLine();
-    }
-  }
+  //   } else if (path == 1) {
+  //     noAuto();
+  //   } else if (path == 2) {
+  //     leaveLine();
+  //   }
+  // }
+
+  autoStarted = true;
+  sortingColor = true;
 }
 
 
