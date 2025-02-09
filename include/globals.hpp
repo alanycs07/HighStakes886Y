@@ -63,6 +63,8 @@ extern int autonColor;
 extern int path;
 extern int startingPos;
 
+extern bool runAntiJam;
+
 //piston
   extern bool clampExtended;
   extern bool doinkerExtended;

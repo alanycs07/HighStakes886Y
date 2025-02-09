@@ -143,7 +143,7 @@ void initialize() {
 
     ejectNextRing();
 
-if (autoStarted == true) {
+if (runAntiJam == true) {
   if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() >= 0){
       if(!stopIntake){
         current_peak += 1;
@@ -161,9 +161,9 @@ if (autoStarted == true) {
       sortingColor = false;
       useAutoIntake = false;
       spinUntilDetected = false;
-      sortingColorMem = sortingColor;
-      useAutoIntakeMem = useAutoIntake;
-      spinUntilDetectedMem = spinUntilDetected;
+      // sortingColorMem = sortingColor;
+      // useAutoIntakeMem = useAutoIntake;
+      // spinUntilDetectedMem = spinUntilDetected;
       outtakeStartTime = pros::millis();
       current_peak = 0;
     }
@@ -177,7 +177,8 @@ if (autoStarted == true) {
         stopIntake = false;
       }
     }
-}
+  }
+
 
 
 // if (intake.get_actual_velocity() >= 0 && intake.get_actual_velocity() < 100 && abs(intake.get_current_draw()) > 2000  && !stopIntake){
@@ -232,74 +233,75 @@ void competition_initialize() {
 
 void autonomous() {
 //COLOR SORT//
-  // if (autonColor == 0) {
-  //   //EJECT BLUE
-  //   ejectColor = blue;
-  //   // ejectColor = red;
-  // }
-  // else if (autonColor == 1) {
-  //   //EJECT RED
-  //   ejectColor = red;
-  // }
-  // else {
-  //   ejectColor = noColor;
-  // }
+  runAntiJam = true;
+  if (autonColor == 0) {
+    //EJECT BLUE
+    ejectColor = blue;
+    // ejectColor = red;
+  }
+  else if (autonColor == 1) {
+    //EJECT RED
+    ejectColor = red;
+  }
+  else {
+    ejectColor = noColor;
+  }
 
-  // if (startingPos == 0) {
-  //   //RED POSITIVE
-  //   if (path == 0) {
-  //     // RedPositiveAWP();
-  //     // redPositive6Ring();
-  //     //BlueSigAWP();
-  //     RedSigAWP();
-  //     // Blue7Ring();
-  //     // Red7Ring();
-  //     //  RedPos4Ring();
-  //   } else if (path == 1) {
-  //     // RedRush();
-  //     RedPos4Ring();
-  //   } else if (path == 2) {
+  if (startingPos == 0) {
+    //RED POSITIVE
+    if (path == 0) {
+      // RedPositiveAWP();
+      // redPositive6Ring();
+      //BlueSigAWP();
+      //RedSigAWP();
+      // Blue7Ring();
+      Red7Ring();
+      //  RedPos4Ring();
+    } else if (path == 1) {
+      // RedRush();
+      RedPos4Ring();
+    } else if (path == 2) {
       
-  //   }
-  //  } else if (startingPos == 1) {
-  //   //RED NEGATIVE
-  //   if (path == 0) {
-  //     Red7Ring();
-  //   } else if (path == 1) {
+    }
+   } else if (startingPos == 1) {
+    //RED NEGATIVE
+    if (path == 0) {
+      Red7Ring();
+    } else if (path == 1) {
 
-  //   } else if (path == 2) {
+    } else if (path == 2) {
 
-  //   }
-  // } else if (startingPos == 2) {
-  //   //BLUE POSITIVE
-  //   if (path == 0) {
-  //     BlueSigAWP();
-  //   } else if (path == 1) {
-  //     // BluePos4Ring();
-  //   } else if (path == 2) {
+    }
+  } else if (startingPos == 2) {
+    //BLUE POSITIVE
+    if (path == 0) {
+      BlueSigAWP();
+    } else if (path == 1) {
+      // BluePos4Ring();
+    } else if (path == 2) {
 
-  //   }
-  // } else if (startingPos == 3) {
-  //   //BLUE NEGATIVE
-  //   if (path == 0) {
-  //     Blue7Ring();
-  //   } else if (path == 1) {
+    }
+  } else if (startingPos == 3) {
+    //BLUE NEGATIVE
+    if (path == 0) {
+      Blue7Ring();
+    } else if (path == 1) {
 
-  //   } else if (path == 2) {
+    } else if (path == 2) {
 
-  //   }
-  // } else {
-  //   //SKILLS
-  //   if (path == 0) {
+    }
+  } else {
+    //SKILLS
+    if (path == 0) {
 
-  //     skills();
+      skills();
 
-  //   } else if (path == 1) {
-  //     noAuto();
-  //   } else if (path == 2) {
-  //     leaveLine();
-  //   }
-  // }
+    } else if (path == 1) {
+      noAuto();
+    } else if (path == 2) {
+      leaveLine();
+    }
+  }
 
   autoStarted = true;
   sortingColor = true;
@@ -325,6 +327,7 @@ void opcontrol() {
   useAutoIntake = false;
   spinUntilDetected = false;
   autoStarted = false;
+  runAntiJam = true;
   // bool isExtended1 = true; // remove for DRIVER SKILLS
   arm.set_brake_mode(pros::MotorBrake::hold);
   // //BELOW FOR DRIVER SKILLS//

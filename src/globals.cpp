@@ -51,7 +51,7 @@ int current_peak = 0;
 int outtakeStartTime = 0;
 int detected_amount = 0;
 
-
+bool runAntiJam = true;
 //ARM MACRO
 //double loadingPos = 18000;
 double loadingPos = 23000;
