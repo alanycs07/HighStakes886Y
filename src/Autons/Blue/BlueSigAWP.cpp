@@ -14,13 +14,13 @@ void BlueSigAWP () {
     chassis.waitUntilDone();
     pros::delay(100);
 
-    chassis.moveToPoint(47, -2, 700, {.maxSpeed = 40});
+    chassis.moveToPoint(46, -2, 700, {.maxSpeed = 40});
     intakeRaise.set_value(true);
     useAutoIntake = true;
     spinUntilDetected = true;
     chassis.waitUntilDone();
     intakeRaise.set_value(false);
-    pros::delay(300);
+    pros::delay(450);
     chassis.turnToPoint(23, -30, 600,{.forwards = false});
     chassis.moveToPoint(23, -30, 1200, {.forwards = false, .maxSpeed = 80});
     chassis.waitUntilDone();
@@ -28,9 +28,9 @@ void BlueSigAWP () {
     goalClamp.set_value(true);
     useAutoIntake = false;
     spinUntilDetected = false;
-    chassis.turnToPoint(9.5, -15, 600); //turn to middle 4 rings
+    chassis.turnToPoint(7.3, -16.5, 600); //turn to middle 4 rings
     intake.move_velocity(0);
-    chassis.moveToPoint(9.5, -15, 700);
+    chassis.moveToPoint(7.3, -16.5, 700);
     chassis.waitUntilDone();
     leftDoinker.set_value(true);
     pros::delay(100);
@@ -55,9 +55,10 @@ void BlueSigAWP () {
     spinUntilDetected = true;
     chassis.waitUntilDone();
     pros::delay(100);
-    chassis.turnToPoint(9, -51, 900, {.forwards = false});
-    chassis.moveToPoint(9.4, -51, 900, {.forwards = false, .maxSpeed = 50});
+    chassis.turnToPoint(9, -53, 1000, {.forwards = false});
+    chassis.moveToPoint(9.4, -53, 900, {.forwards = false, .maxSpeed = 50});
     chassis.waitUntilDone();
+    pros::delay(50);
     goalClamp.set_value(true);
     useAutoIntake = false;
     spinUntilDetected = false;

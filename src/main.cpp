@@ -233,7 +233,8 @@ void autonomous() {
 //COLOR SORT//
   if (autonColor == 0) {
     //EJECT BLUE
-    ejectColor = blue;
+    // ejectColor = blue;
+    ejectColor = red;
   }
   else if (autonColor == 1) {
     //EJECT RED
@@ -248,10 +249,10 @@ void autonomous() {
     if (path == 0) {
       // RedPositiveAWP();
       // redPositive6Ring();
-      // BlueSigAWP();
-      RedSigAWP();
-      // Blue7Ring();
-      //Red7Ring();
+      //BlueSigAWP();
+      // RedSigAWP();
+      Blue7Ring();
+      // Red7Ring();
       //  RedPos4Ring();
     } else if (path == 1) {
       // RedRush();

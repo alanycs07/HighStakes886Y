@@ -11,11 +11,11 @@ void skills() {
 
   armTarget = restingPos;
   sortingColor = true;
-  pros::delay(700); // Ring on alliance stake
+  pros::delay(600); // Ring on alliance stake
   sortingColor = false;
   intake.move_velocity(0);
 
-  chassis.moveToPoint(0, 14, 1000);
+  chassis.moveToPoint(0, 14, 900);
   chassis.turnToHeading(-90, 700);
   chassis.moveToPoint(
       16.5, 14, 1200,
@@ -23,18 +23,18 @@ void skills() {
   chassis.waitUntilDone();
   pros::delay(80);
   goalClamp.set_value(true); // clamps on first goal
-  chassis.turnToHeading(12, 800);
-  chassis.moveToPoint(24.5, 31.5, 1000);
+  chassis.turnToHeading(12, 700);
+  chassis.moveToPoint(24.5, 31.5, 900);
   sortingColor = true;
-  chassis.turnToHeading(71, 800);
-  chassis.moveToPoint(46, 39.2, 1200); // gets 2 rings
+  chassis.turnToHeading(71, 700);
+  chassis.moveToPoint(46, 39.2, 1000); // gets 2 rings
 
   chassis.turnToHeading(35, 800); // aim for neutral ring
-  chassis.moveToPoint(58.5, 57.5, 1200);
+  chassis.moveToPoint(59, 58, 1000);
   chassis.turnToHeading(-11, 800); // the ring for neutral stake
 
-  chassis.moveToPoint(54, 85, 1300, {.maxSpeed = 70});
-  chassis.waitUntil(15);
+  chassis.moveToPoint(53, 86, 1300, {.maxSpeed = 70});
+  chassis.waitUntil(16);
   armTarget = loadingPos;
   chassis.waitUntilDone();
   pros::delay(350);
@@ -43,7 +43,7 @@ void skills() {
   chassis.waitUntilDone();
   sortingColor = false;
   intake.move_velocity(0);
-  chassis.moveToPoint(80, 66, 1200);
+  chassis.moveToPoint(80, 66, 800, {.maxSpeed = 50});
   chassis.waitUntil(3);
   armTarget = wallPos;
   // scoring neutral stake
@@ -53,7 +53,7 @@ void skills() {
   chassis.turnToHeading(180, 800); // aim for bottom 2 rings
   chassis.waitUntilDone();
   sortingColor = true;
-  chassis.moveToPoint(50.2, 6, 2000, {.maxSpeed = 90});  // intakes 2 rings
+  chassis.moveToPoint(50.2, 5, 2000, {.maxSpeed = 90});  // intakes 2 rings
   chassis.turnToHeading(60, 800);                      // aim for last ring
   chassis.moveToPoint(60, 15, 2000); // intakes last ring
   chassis.turnToHeading(-39, 800);
@@ -225,7 +225,7 @@ void skills() {
   chassis.waitUntilDone();
   armTarget = wallPos;
   chassis.moveToPose(9, 69, 45, 1300, {.forwards = false, .minSpeed = 60});
-  chassis.moveToPoint(9, 69, 1000, {.minSpeed = 60, .maxSpeed = 70});
+  chassis.moveToPoint(9, 69, 1000, {.maxSpeed = 70, .minSpeed = 60});
   chassis.waitUntilDone();
   armTarget = restingPos;
 

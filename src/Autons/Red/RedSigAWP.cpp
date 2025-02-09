@@ -49,12 +49,12 @@ void RedSigAWP () {
     chassis.waitUntilDone();
     pros::delay(200);
     goalClamp.set_value(false);
-    chassis.turnToPoint(-28.5, -48.5, 600);
+    chassis.turnToPoint(-27, -50, 600);
     chassis.moveToPoint(-27, -50, 900);
     useAutoIntake = true;
     spinUntilDetected = true;
     chassis.waitUntilDone();
-    pros::delay(100);
+    pros::delay(250);
     chassis.turnToPoint(-9, -51, 900, {.forwards = false});
     chassis.moveToPoint(-9.4, -51, 900, {.forwards = false, .maxSpeed = 50});
     chassis.waitUntilDone();
