@@ -118,9 +118,9 @@ void initialize() {
       pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
       pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
       pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
-      pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
-      pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
-      pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
+      // pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
+      // pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
+      // pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
 
     if (sortingColor == true) {
       if (ejectColor == red) {
@@ -236,7 +236,7 @@ void autonomous() {
   runAntiJam = true;
   if (autonColor == 0) {
     //EJECT BLUE
-    ejectColor = blue;
+    ejectColor = red;
     // ejectColor = red;
   }
   else if (autonColor == 1) {
@@ -253,10 +253,12 @@ void autonomous() {
       // RedPositiveAWP();
       // redPositive6Ring();
       //BlueSigAWP();
+      new_skills();
       //RedSigAWP();
       //Blue7Ring();
-      Red7Ring();
+      //Red7Ring();
       //  RedPos4Ring();
+
     } else if (path == 1) {
       // RedRush();
       RedPos4Ring();

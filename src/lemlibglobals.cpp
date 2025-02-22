@@ -7,7 +7,7 @@
 
 // MOTORS //
 pros::MotorGroup left_motors({8, -9, -3}, pros::MotorGearset::blue);
-pros::MotorGroup right_motors({-13, 11, 12}, pros::MotorGearset::blue);
+pros::MotorGroup right_motors({-13, 14, 12}, pros::MotorGearset::blue);
 
 pros::Motor intake(6, pros::MotorGearset::blue); //11W
 // pros::Motor intake2(8, pros::MotorGearset::blue); //5.5W
@@ -15,12 +15,12 @@ pros::Motor intake(6, pros::MotorGearset::blue); //11W
 // pros::Motor arm2(4, pros::MotorGearset::green);
 
 pros::MotorGroup arm ({-10, 4}, pros::MotorGearset::green);
-lemlib::Drivetrain drivetrain(&left_motors, &right_motors, 11.125, lemlib::Omniwheel::NEW_275, 450, 2);
+lemlib::Drivetrain drivetrain(&left_motors, &right_motors, 10.1875, lemlib::Omniwheel::NEW_275, 450, 8);
 
 // lateral PID controller
-lemlib::ControllerSettings lateral_controller(9.5, // proportional gain (kP)
+lemlib::ControllerSettings lateral_controller(7, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              18, // derivative gain (kD)
+                                              2, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in inches
                                               100, // small error range timeout, in milliseconds
@@ -30,9 +30,9 @@ lemlib::ControllerSettings lateral_controller(9.5, // proportional gain (kP)
 );
 
 // angular PID controller
-lemlib::ControllerSettings angular_controller(2.9, // proportional gain (kP)
+lemlib::ControllerSettings angular_controller(1.2, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              21.5, // derivative gain (kD)
+                                              5, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in degrees
                                               100, // small error range timeout, in milliseconds
@@ -46,20 +46,20 @@ lemlib::ControllerSettings angular_controller(2.9, // proportional gain (kP)
 // imu
 pros::Imu imu(20);
 // horizontal tracking wheel encoder
-pros::Rotation horizontal_encoder(19);
-pros::Rotation vertical_encoder(-18);
+pros::Rotation horizontal_encoder(15);
+pros::Rotation vertical_encoder(-16);
 // vertical tracking wheel encoder
 // pros::adi::Encoder vertical_encoder('E', 'F', true);
 // horizontal tracking wheel
 lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2,0.3);
-lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2,.1);
+lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2,.125);
 // // vertical tracking wheel
 // lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -2.5);
 
 // odometry settings
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
-                            &horizontal_tracking_wheel, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
                             &imu // inertial sensor
 );

@@ -15,7 +15,7 @@ void colorSort(int sortedColor) {
         intake.move_velocity(12000);
     } 
     else if (ejectRing == true) {
-        if (distance < 40) {
+        if (distance < 35) {
             intake.move_velocity(-12000);
             // ejectCounter = pros::millis();
             // if (ejectCounter == 300) {
@@ -34,7 +34,7 @@ void colorSort(int sortedColor) {
     }
 
     if (sortedColor == red) {
-        if (red_stuff.height * red_stuff.width > 4000) {
+        if (red_stuff.height * red_stuff.width > 6000) {
         // if(detected_amount < 2){
             detected_amount += 1;
         // }
@@ -51,7 +51,7 @@ void colorSort(int sortedColor) {
     }
 
     if (sortedColor == blue) {
-        if (blue_stuff.height * blue_stuff.width > 4000) {
+        if (blue_stuff.height * blue_stuff.width > 6000) {
                 detected_amount += 1;
             if (detected_amount >= 6){
                 ejectRing = true;

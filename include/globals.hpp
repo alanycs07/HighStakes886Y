@@ -48,6 +48,7 @@ extern double distance;
 extern double loadingPos;
 extern double restingPos;
 extern double wallPos;
+extern double raisedPos;
 
 // OTHER AUTO INFO //
 extern bool autoStarted;

@@ -11,15 +11,15 @@ pros::adi::DigitalOut doinker(2);
 pros::adi::DigitalOut leftDoinker(3);
 pros::adi::DigitalOut goalClamp(1);
 pros::Optical colorSensor(5);
-pros::Vision vision_sensor(16);
+pros::Vision vision_sensor(17);
 pros::adi::Button limitSwitch(5);
 pros::Distance sorterDistance(1);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 // ARM PID //
 bool armMacro = false;
 double armPosition;
-double armkP = 0.4;
-double armkI = 0.01;
+double armkP = 1.4;
+double armkI = 0;
 double armkD = 0.1;
 double previous_error = 0;
 double target;
@@ -54,9 +54,10 @@ int detected_amount = 0;
 bool runAntiJam = true;
 //ARM MACRO
 //double loadingPos = 18000;
-double loadingPos = 23000;
-double restingPos = 11000;
-double wallPos = 72000;
+double loadingPos = 23200;
+double restingPos = 21000;
+double wallPos =36000;
+double raisedPos = 29000;
 //MO AUTO SELECTOR
 //color 
 int autonColor = 0;

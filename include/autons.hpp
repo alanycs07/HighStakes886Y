@@ -27,4 +27,5 @@ void RedPos4Ring();
 void skills();
 void noAuto();
 void leaveLine();
+void new_skills();
 #endif
