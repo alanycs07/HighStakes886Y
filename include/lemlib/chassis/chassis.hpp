@@ -331,6 +331,9 @@ extern ExpoDriveCurve defaultDriveCurve;
  */
 class Chassis {
     public:
+        
+        ControllerSettings lateralSettings;
+        ControllerSettings angularSettings;
         /**
          * @brief Chassis constructor
          *
@@ -925,8 +928,6 @@ class Chassis {
 
         float distTraveled = 0;
 
-        ControllerSettings lateralSettings;
-        ControllerSettings angularSettings;
         Drivetrain drivetrain;
         OdomSensors sensors;
         DriveCurve* throttleCurve;

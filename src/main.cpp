@@ -232,6 +232,7 @@ void competition_initialize() {
 
 
 void autonomous() {
+  
 //COLOR SORT//
   runAntiJam = true;
   if (autonColor == 0) {
@@ -307,6 +308,7 @@ void autonomous() {
 
   autoStarted = true;
   sortingColor = true;
+  
 }
 
 

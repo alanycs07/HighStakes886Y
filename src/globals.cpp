@@ -12,6 +12,7 @@ pros::adi::DigitalOut leftDoinker(3);
 pros::adi::DigitalOut goalClamp(1);
 pros::Optical colorSensor(5);
 pros::Vision vision_sensor(17);
+pros::Distance leftDistance(18);
 pros::adi::Button limitSwitch(5);
 pros::Distance sorterDistance(1);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
