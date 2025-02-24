@@ -1,10 +1,12 @@
 #include "main.h"
+#include "LTV.hpp"
 #include "autons.hpp"
 #include "globals.hpp"
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlibglobals.hpp"
 #include "liblvgl/llemu.hpp"
 #include "mathfunc.hpp"
+#include "preplanning.h"
 #include "pros/abstract_motor.hpp"
 #include "pros/adi.hpp"
 #include "pros/llemu.hpp"
@@ -12,6 +14,7 @@
 #include "pros/motors.h"
 #include "pros/rotation.hpp"
 #include "pros/rtos.hpp"
+
 
 ASSET(clampGoalCurve_txt);
 /**
@@ -38,7 +41,7 @@ void on_left_button() {
   autonColor = (autonColor + 1) % 3;
   if (autonColor == 0) {
     pros::lcd::set_text(4, "Sorting Color: Blue");
-  } else if (autonColor == 1){
+  } else if (autonColor == 1) {
     pros::lcd::set_text(4, "Sorting Color: Red");
   } else {
     pros::lcd::set_text(4, "Sorting Color: No Sorting");
@@ -57,13 +60,13 @@ void on_center_button() {
     pros::lcd::set_text(5, "Starting Position: Blue Negative");
   } else {
     pros::lcd::set_text(5, "Starting Position: Skills");
-  } 
+  }
 }
 
 void on_right_button() {
   path = (path + 1) % 4;
 
-  //POSITIVE
+  // POSITIVE
   if (path == 0 && (startingPos == 0 || startingPos == 2)) {
     pros::lcd::set_text(6, "Autonomous Running: SIG AWP");
   } else if (path == 1 && (startingPos == 0 || startingPos == 2)) {
@@ -73,7 +76,7 @@ void on_right_button() {
   } else if (path == 3 && (startingPos == 0 || startingPos == 2)) {
     pros::lcd::set_text(6, "Autonomous Running: N/A");
   }
-  //NEGATIVE
+  // NEGATIVE
   else if ((path == 0) && (startingPos == 1 || startingPos == 3)) {
     pros::lcd::set_text(6, "Autonomous Running: Negative 7 Ring");
   } else if (path == 1 && (startingPos == 1 || startingPos == 3)) {
@@ -81,7 +84,7 @@ void on_right_button() {
   } else if (path == 2 && (startingPos == 1 || startingPos == 3)) {
     pros::lcd::set_text(6, "Autonomous Running: N/A");
   }
-  //MISC
+  // MISC
   else if (path == 0 && startingPos == 4) {
     pros::lcd::set_text(6, "Autonomous Running: Skills");
   } else if (path == 1 && startingPos == 4) {
@@ -120,92 +123,89 @@ void initialize() {
       pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
       // pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
       // pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
-      // pros::lcd::print(6, "Actual Velocity: %ld", intake.get_actual_velocity());
+      // pros::lcd::print(6, "Actual Velocity: %ld",
+      // intake.get_actual_velocity());
 
-    if (sortingColor == true) {
-      if (ejectColor == red) {
-        colorSort(red);
+      if (sortingColor == true) {
+        if (ejectColor == red) {
+          colorSort(red);
+        } else if (ejectColor == blue) {
+          colorSort(blue);
+        } else {
+          colorSort(noColor);
+        }
       }
-      else if (ejectColor == blue) {
-        colorSort(blue);
+      if (useAutoIntake == true) {
+        loadRing();
       }
-      else {
-        colorSort(noColor);
+
+      if (armMacro == true) {
+        Macro();
       }
-    }
-    if (useAutoIntake == true) {
-      loadRing();
-    }
 
-    if (armMacro == true) {
-      Macro();
-    }
+      ejectNextRing();
 
-    ejectNextRing();
+      if (runAntiJam == true) {
+        if (intake.get_current_draw() > 2000 &&
+            intake.get_actual_velocity() < 100 &&
+            intake.get_actual_velocity() >= 0) {
+          if (!stopIntake) {
+            current_peak += 1;
+          }
+        } else {
+          current_peak = 0;
+        }
 
-if (runAntiJam == true) {
-  if(intake.get_current_draw() > 2000 && intake.get_actual_velocity() < 100 && intake.get_actual_velocity() >= 0){
-      if(!stopIntake){
-        current_peak += 1;
+        if (current_peak > 4 && !stopIntake && !armMacro) {
+          intake.move(-127);
+          // if(intake.get_voltage() > 5000){previous_state = 127;}
+          // else if(intake.get_voltage() < -5000){previous_state = -127;}
+          // else{previous_state = 0;}
+          stopIntake = true;
+          sortingColor = false;
+          useAutoIntake = false;
+          spinUntilDetected = false;
+          // sortingColorMem = sortingColor;
+          // useAutoIntakeMem = useAutoIntake;
+          // spinUntilDetectedMem = spinUntilDetected;
+          outtakeStartTime = pros::millis();
+          current_peak = 0;
+        }
+
+        if (stopIntake) {
+          if (pros::millis() - outtakeStartTime >= 150) {
+            // sortingColor = sortingColorMem;
+            // useAutoIntake = useAutoIntakeMem;
+            // spinUntilDetected = spinUntilDetectedMem;
+            sortingColor = true;
+            stopIntake = false;
+          }
+        }
       }
-    }else{
-      current_peak = 0;
-    }
 
-    if(current_peak > 4 && !stopIntake && !armMacro){
-      intake.move(-127);
-      // if(intake.get_voltage() > 5000){previous_state = 127;}
-      // else if(intake.get_voltage() < -5000){previous_state = -127;}
-      // else{previous_state = 0;}
-      stopIntake = true;
-      sortingColor = false;
-      useAutoIntake = false;
-      spinUntilDetected = false;
-      // sortingColorMem = sortingColor;
-      // useAutoIntakeMem = useAutoIntake;
-      // spinUntilDetectedMem = spinUntilDetected;
-      outtakeStartTime = pros::millis();
-      current_peak = 0;
-    }
-
-    if(stopIntake){
-      if(pros::millis() - outtakeStartTime >= 150){
-        // sortingColor = sortingColorMem;
-        // useAutoIntake = useAutoIntakeMem;
-        // spinUntilDetected = spinUntilDetectedMem;
-        sortingColor = true;
-        stopIntake = false;
-      }
-    }
-  }
-
-
-
-// if (intake.get_actual_velocity() >= 0 && intake.get_actual_velocity() < 100 && abs(intake.get_current_draw()) > 2000  && !stopIntake){
-//       intake.move(-127);
-//       stopIntake = true;
-//       sortingColor = false;
-//       outakeTime = 0;
-//     }
-//     if(stopIntake){
-//       outakeTime += 25;
-//     } 
-//     if(stopIntake && outakeTime > 300){
-//       stopIntake = false;
-//       intake.move(0);
-//     }
-   
+      // if (intake.get_actual_velocity() >= 0 && intake.get_actual_velocity() <
+      // 100 && abs(intake.get_current_draw()) > 2000  && !stopIntake){
+      //       intake.move(-127);
+      //       stopIntake = true;
+      //       sortingColor = false;
+      //       outakeTime = 0;
+      //     }
+      //     if(stopIntake){
+      //       outakeTime += 25;
+      //     }
+      //     if(stopIntake && outakeTime > 300){
+      //       stopIntake = false;
+      //       intake.move(0);
+      //     }
 
       // delay to save resources
       pros::delay(25);
-      
     }
   });
 
   pros::lcd::set_text(4, "Sorting Color: Blue");
   pros::lcd::set_text(5, "Starting Position: Red Positive");
   pros::lcd::set_text(6, "Autonomous Running: Sig AWP");
-
 }
 
 /**
@@ -224,12 +224,7 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {
-  
-}
-
-
-
+void competition_initialize() {}
 
 void autonomous() {
   
@@ -264,7 +259,7 @@ void autonomous() {
       // RedRush();
       RedPos4Ring();
     } else if (path == 2) {
-      
+
     }
    } else if (startingPos == 1) {
     //RED NEGATIVE
@@ -308,9 +303,11 @@ void autonomous() {
 
   autoStarted = true;
   sortingColor = true;
-  
+  /*
+  trajectory test({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1);
+  follow(test.targetLinearVelocity, test.targetAngularVelocity,
+         test.targetAngle, test.points);*/
 }
-
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -327,6 +324,7 @@ void autonomous() {
  */
 
 void opcontrol() {
+  
   ejectColor = noColor;
   useAutoIntake = false;
   spinUntilDetected = false;
@@ -341,15 +339,13 @@ void opcontrol() {
     int leftY = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
     int leftX = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));
 
-    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && !stopIntake) {
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && !stopIntake) {
       sortingColor = true;
-      
-    }
-    else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+
+    } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
       intake.move_voltage(-12000);
       sortingColor = false;
-    }
-    else if (!stopIntake){
+    } else if (!stopIntake) {
       intake.move_voltage(0);
       sortingColor = false;
     }
@@ -378,10 +374,11 @@ void opcontrol() {
       ejectColor = noColor;
     }
 
-    else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+    else if (controller.get_digital_new_press(
+                 pros::E_CONTROLLER_DIGITAL_LEFT)) {
       ejectColor = red;
-    }
-    else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+    } else if (controller.get_digital_new_press(
+                   pros::E_CONTROLLER_DIGITAL_RIGHT)) {
       ejectColor = blue;
     }
 
@@ -393,16 +390,15 @@ void opcontrol() {
       spinUntilDetected = true;
       // useAutoIntake = true;
       loadRing();
-    }
-    else {
+    } else {
       spinUntilDetected = false;
       useAutoIntake = false;
     }
 
     chassis.arcade(leftY, leftX);
 
-//ARM BELOW
-    
+    // ARM BELOW
+
     if (rightY > 30) {
       armMacro = false;
       arm.move(rightY);
@@ -414,20 +410,20 @@ void opcontrol() {
     if (!armMacro && std::abs(rightY) < 30) {
       arm.move(0);
     }
-    
+
     if (rightX > 70) {
-      //loading
+      // loading
       armMacro = true;
       armTarget = loadingPos;
     }
 
     if (rightX < -70) {
-      //alliance stake lineup
+      // alliance stake lineup
       armMacro = true;
       armTarget = 72000;
     }
 
-    
     pros::delay(25); // Run for 20 ms then update
   }
+ 
 }

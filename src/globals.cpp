@@ -13,6 +13,7 @@ pros::adi::DigitalOut goalClamp(1);
 pros::Optical colorSensor(5);
 pros::Vision vision_sensor(17);
 pros::Distance leftDistance(18);
+pros::Distance rightDistance(19);
 pros::adi::Button limitSwitch(5);
 pros::Distance sorterDistance(1);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
@@ -55,7 +56,7 @@ int detected_amount = 0;
 bool runAntiJam = true;
 //ARM MACRO
 //double loadingPos = 18000;
-double loadingPos = 23200;
+double loadingPos = 23700;
 double restingPos = 21000;
 double wallPos =36000;
 double raisedPos = 29000;

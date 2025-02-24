@@ -15,6 +15,7 @@ extern pros::adi::Button limitSwitch;
 extern pros::Distance sorterDistance;
 extern pros::Vision vision_sensor;
 extern pros::Distance leftDistance;
+extern pros::Distance rightDistance;
 extern pros::Controller controller;
 
 // ARM PID //
