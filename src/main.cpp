@@ -5,6 +5,7 @@
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlibglobals.hpp"
 #include "liblvgl/llemu.hpp"
+#include "localization.h"
 #include "mathfunc.hpp"
 #include "preplanning.h"
 #include "pros/abstract_motor.hpp"
@@ -14,7 +15,6 @@
 #include "pros/motors.h"
 #include "pros/rotation.hpp"
 #include "pros/rtos.hpp"
-
 
 ASSET(clampGoalCurve_txt);
 /**
@@ -110,7 +110,35 @@ void initialize() {
   pros::lcd::register_btn0_cb(on_left_button);
   pros::lcd::register_btn1_cb(on_center_button);
   pros::lcd::register_btn2_cb(on_right_button);
-  chassis.calibrate(); // calibrate sensors
+  imu.reset(true);
+  pros::Task odom([&](){
+    ParticleFilter pf(500, {{-6.15f, -2.75f, 270.0f}, {6.15f, -2.75f, 90.0f}},
+                      0.0f, -47.0f, 0.5f, 0.1f);
+    double prev_heading = 0;
+    double prev_vert = 0;
+    while (true) {
+      float readings[2] = {leftDistance.get() * 0.0393701f,
+                           rightDistance.get() * 0.0393701f};
+      if (leftDistance.get_object_size() < 70) {
+        readings[0] = 9999;
+      }
+      if (rightDistance.get_object_size() < 70) {
+        readings[1] = 9999;
+      }
+
+      float heading = imu.get_heading();
+      float mid = vertical_encoder.get_position() * 100 * 2.75 * M_PI / (48.0/36.0 * 360); 
+
+      pf.update(heading * DEG_TO_RAD, heading * DEG_TO_RAD - prev_heading,
+                mid - prev_vert, readings);
+      auto [x, y] = pf.estimate();
+      prev_heading = heading * DEG_TO_RAD;
+      prev_vert = mid;
+      chassis.setPose({x, y, heading});
+      pros::delay(10);
+    }
+  });
+  // chassis.calibrate(); // calibrate sensors
   // intakeRaise.set_value(1);
   // armRotation.reset();
   // print position to brain screen
@@ -227,69 +255,63 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous() {
-  
-//COLOR SORT//
+
+  // COLOR SORT//
   runAntiJam = true;
   if (autonColor == 0) {
-    //EJECT BLUE
+    // EJECT BLUE
     ejectColor = red;
     // ejectColor = red;
-  }
-  else if (autonColor == 1) {
-    //EJECT RED
+  } else if (autonColor == 1) {
+    // EJECT RED
     ejectColor = red;
-  }
-  else {
+  } else {
     ejectColor = noColor;
   }
 
   if (startingPos == 0) {
-    //RED POSITIVE
+    // RED POSITIVE
     if (path == 0) {
       // RedPositiveAWP();
       // redPositive6Ring();
-      //BlueSigAWP();
+      // BlueSigAWP();
       new_skills();
-      //RedSigAWP();
-      //Blue7Ring();
-      //Red7Ring();
-      //  RedPos4Ring();
+      // RedSigAWP();
+      // Blue7Ring();
+      // Red7Ring();
+      //   RedPos4Ring();
 
     } else if (path == 1) {
       // RedRush();
       RedPos4Ring();
     } else if (path == 2) {
-
     }
-   } else if (startingPos == 1) {
-    //RED NEGATIVE
+  } else if (startingPos == 1) {
+    // RED NEGATIVE
     if (path == 0) {
       Red7Ring();
     } else if (path == 1) {
 
     } else if (path == 2) {
-
     }
   } else if (startingPos == 2) {
-    //BLUE POSITIVE
+    // BLUE POSITIVE
     if (path == 0) {
       BlueSigAWP();
     } else if (path == 1) {
       // BluePos4Ring();
     } else if (path == 2) {
-
     }
   } else if (startingPos == 3) {
-    //BLUE NEGATIVE
+    // BLUE NEGATIVE
     if (path == 0) {
       Blue7Ring();
     } else if (path == 1) {
 
     } else if (path == 2) {
-
     }
   } else {
-    //SKILLS
+    // SKILLS
     if (path == 0) {
 
       skills();
@@ -324,7 +346,7 @@ void autonomous() {
  */
 
 void opcontrol() {
-  
+
   ejectColor = noColor;
   useAutoIntake = false;
   spinUntilDetected = false;
@@ -425,5 +447,4 @@ void opcontrol() {
 
     pros::delay(25); // Run for 20 ms then update
   }
- 
 }
