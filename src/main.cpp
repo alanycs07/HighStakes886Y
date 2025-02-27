@@ -111,11 +111,12 @@ void initialize() {
   pros::lcd::register_btn1_cb(on_center_button);
   pros::lcd::register_btn2_cb(on_right_button);
   imu.reset(true);
-  pros::Task odom([&](){
+  pros::Task odom([&]() {
     ParticleFilter pf(500, {{-6.15f, -2.75f, 270.0f}, {6.15f, -2.75f, 90.0f}},
                       0.0f, -47.0f, 0.5f, 0.1f);
     double prev_heading = 0;
-    double prev_vert = vertical_encoder.get_position() * 100 * 2.75 * M_PI / (48.0/36.0 * 360); 
+    double prev_vert = vertical_encoder.get_position() * 100 * 2.75 * M_PI /
+                       (48.0 / 36.0 * 360);
     while (true) {
       float readings[2] = {leftDistance.get() * 0.0393701f,
                            rightDistance.get() * 0.0393701f};
@@ -127,7 +128,8 @@ void initialize() {
       }
 
       float heading = imu.get_heading();
-      float mid = vertical_encoder.get_position() * 100 * 2.75 * M_PI / (48.0/36.0 * 360); 
+      float mid = vertical_encoder.get_position() * 100 * 2.75 * M_PI /
+                  (48.0 / 36.0 * 360);
 
       pf.update(heading * DEG_TO_RAD, heading * DEG_TO_RAD - prev_heading,
                 mid - prev_vert, readings);
@@ -417,8 +419,22 @@ void opcontrol() {
       useAutoIntake = false;
     }
 
-    chassis.arcade(leftY, leftX);
+    // chassis.arcade(leftY, leftX);
+    double r = std::sqrt(leftX * leftX + leftY * leftY);
+    if (r == 0) {
+      chassis.arcade(0, 0);
+    }
+    double nx = leftX / r;
+    double ny = leftY / r;
+    double absX = std::fabs(nx);
+    double absY = std::fabs(ny);
 
+    if(absX >= absY){
+      // y x 
+      chassis.arcade(ny / absX * r, sgn(nx) * r);
+    }else {
+      chassis.arcade(sgn(ny) * r, nx / absY * r);
+    }
     // ARM BELOW
 
     if (rightY > 30) {
