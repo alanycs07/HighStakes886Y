@@ -110,6 +110,7 @@ void initialize() {
   pros::lcd::register_btn0_cb(on_left_button);
   pros::lcd::register_btn1_cb(on_center_button);
   pros::lcd::register_btn2_cb(on_right_button);
+  /*
   imu.reset(true);
   pros::Task odom([&]() {
     ParticleFilter pf(500, {{-6.15f, -2.75f, 270.0f}, {6.15f, -2.75f, 90.0f}},
@@ -139,8 +140,8 @@ void initialize() {
       chassis.setPose({x, y, heading});
       pros::delay(10);
     }
-  });
-  // chassis.calibrate(); // calibrate sensors
+  });*/
+  chassis.calibrate(); // calibrate sensors
   // intakeRaise.set_value(1);
   // armRotation.reset();
   // print position to brain screen
@@ -327,6 +328,16 @@ void autonomous() {
 
   autoStarted = true;
   sortingColor = true;
+  
+  trajectory getRing({{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}}, 3, 3, 3, 1, 0.6);
+  pros::Task([&](){
+    while(chassis.getPose().x < 50){
+      intake.move(127);
+      pros::delay(10);
+    }
+  });
+  follow(getRing.targetLinearVelocity, getRing.targetAngularVelocity,
+         getRing.targetAngle, getRing.points);
   /*
   trajectory test({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1);
   follow(test.targetLinearVelocity, test.targetAngularVelocity,
