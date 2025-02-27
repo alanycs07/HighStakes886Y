@@ -71,7 +71,7 @@ inline double sinc(double x) {
   } else {
     return std::sin(x) / x;
   }
-}/*
+}
 
 inline void followRamsete(std::deque<double> linear, std::deque<double> angular,
                           std::deque<double> heading,
@@ -91,7 +91,7 @@ inline void followRamsete(std::deque<double> linear, std::deque<double> angular,
     Matrixd<3, 1> locale{(points[i].first - chassis.getPose().x) * 0.0254,
                          (points[i].second - chassis.getPose().y) * 0.0254,
                          heading[i] - theta};
-    Matrixd<3, 1> error = locale * rotation;
+    Matrixd<3, 1> error = rotation * locale;
     while (error[2] > M_PI) {
       error[2] -= 2 * M_PI;
     }
@@ -113,6 +113,6 @@ inline void followRamsete(std::deque<double> linear, std::deque<double> angular,
   }
   drivetrain.leftMotors->move(0);
   drivetrain.rightMotors->move(0);
-}*/
+}
 
 #endif // LTV_HPP
