@@ -115,7 +115,7 @@ void initialize() {
     ParticleFilter pf(500, {{-6.15f, -2.75f, 270.0f}, {6.15f, -2.75f, 90.0f}},
                       0.0f, -47.0f, 0.5f, 0.1f);
     double prev_heading = 0;
-    double prev_vert = 0;
+    double prev_vert = vertical_encoder.get_position() * 100 * 2.75 * M_PI / (48.0/36.0 * 360); 
     while (true) {
       float readings[2] = {leftDistance.get() * 0.0393701f,
                            rightDistance.get() * 0.0393701f};
