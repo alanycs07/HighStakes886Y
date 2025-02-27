@@ -4,7 +4,9 @@
 #include "Eigen/Dense"
 #include "dare.h"
 #include "lemlibglobals.hpp"
+#include "preplanning.h"
 #include <deque>
+
 
 #define DEG_TO_RAD M_PI / 180.0f
 
@@ -73,14 +75,16 @@ inline double sinc(double x) {
   }
 }
 
-inline void followRamsete(std::deque<double> linear, std::deque<double> angular,
-                          std::deque<double> heading,
-                          std::vector<std::pair<double, double>> points) {
-  int i = 0;
+inline void followRamsete(trajectory traj) {
+  double dist = 0;
+  double prev = vertical_encoder.get_position() / 100.0 * 2.75 * M_PI / 360;
   double b = 2.00;
   double zeta = 0.7;
-  for (auto point : points) {
-    linear[i] *= 0.0254;
+  while (true) {
+    dist += std::abs(vertical_encoder.get_position() / 100.0 * 2.75 * M_PI / 360 -
+                     prev);
+    int start = pros::millis();
+    Pose pose = traj.getStateAtDistance(dist);
     double theta =
         fmod_positive(90 - chassis.getPose().theta, 360) * DEG_TO_RAD;
     double cos_theta = cos(theta);
@@ -88,28 +92,32 @@ inline void followRamsete(std::deque<double> linear, std::deque<double> angular,
 
     Eigen::Matrix<double, 3, 3> rotation{
         {cos_theta, sin_theta, 0}, {-sin_theta, cos_theta, 0}, {0, 0, 1}};
-    Matrixd<3, 1> locale{(points[i].first - chassis.getPose().x) * 0.0254,
-                         (points[i].second - chassis.getPose().y) * 0.0254,
-                         heading[i] - theta};
+    Matrixd<3, 1> locale{(pose.x - chassis.getPose().x) * 0.0254,
+                         (pose.y - chassis.getPose().y) * 0.0254,
+                         pose.theta - theta};
     Matrixd<3, 1> error = rotation * locale;
+
     while (error[2] > M_PI) {
       error[2] -= 2 * M_PI;
     }
     while (error[2] < -M_PI) {
       error[2] += 2 * M_PI;
     }
-    double k = 2.0 * zeta * sqrt(pow(angular[i], 2) + b * pow(linear[i], 2));
-    double v = linear[i] * cos(error[2]) + k * error[0];
-    double w =
-        angular[i] + k * error[2] + b * linear[i] * sinc(error[2]) * error[1];
-    double left = v - 0.254 * w;
-    double right = v + 0.254 * w;
+    double k =
+        2.0 * zeta *
+        sqrt(pow(pose.angular_velocity, 2) + b * pow(pose.linear_velocity, 2));
+    double v = pose.linear_velocity * cos(error[2]) + k * error[0];
+    double w = pose.angular_velocity + k * error[2] +
+               b * pose.linear_velocity * sinc(error[2]) * error[1];
+    std::cout << pose.linear_velocity << " " << pose.angular_velocity
+              << std::endl;
+    double left = v - 0.130175 * w;
+    double right = v + 0.130175 * w;
     drivetrain.leftMotors->move_velocity(39.9701 * left * 60 * (36.0 / 48) /
-                                         2.75 * M_PI);
+                                         (2.75 * M_PI));
     drivetrain.rightMotors->move_velocity(39.9701 * right * 60 * (36.0 / 48) /
-                                          2.75 * M_PI);
-    i += 1;
-    pros::delay(10);
+                                          (2.75 * M_PI));
+    pros::delay(10 - (pros::millis() - start));
   }
   drivetrain.leftMotors->move(0);
   drivetrain.rightMotors->move(0);
