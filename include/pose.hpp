@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POSE_HPP
+#define POSE_HPP
 
 class Pose
 {
@@ -14,3 +15,5 @@ public:
     double y;
     double theta;
 };
+
+#endif // POSE_HPP

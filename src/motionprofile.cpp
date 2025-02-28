@@ -230,6 +230,8 @@ void ProfileGenerator::generateProfile(virtualPath *path)
         forwardPass.push_back(ProfilePoint(dist, vel));
     }
 
+    this->forwardDist = dist;
+
     vel = 0.00001;
     last_angular_vel = 0;
     angular_accel = 0;

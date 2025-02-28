@@ -1,3 +1,6 @@
+#ifndef MOTIONPROFILE_HPP
+#define MOTIONPROFILE_HPP
+
 #include "Eigen/Dense"
 #include "pose.hpp"
 
@@ -117,6 +120,7 @@ public:
     void generateProfile(virtualPath *path);
     ChassisSpeeds getProfilePoint(double d);
     auto getProfile() { return profile; }
+    double forwardDist = 0;
 
 private:
     Constraints *constraints;
@@ -140,3 +144,5 @@ private:
     double accel_dist;
     double decel_dist;
 };
+
+#endif

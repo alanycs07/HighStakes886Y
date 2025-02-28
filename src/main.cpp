@@ -6,6 +6,7 @@
 #include "lemlibglobals.hpp"
 #include "liblvgl/llemu.hpp"
 #include "localization.h"
+#include "motionprofile.hpp"
 #include "mathfunc.hpp"
 #include "preplanning.h"
 #include "pros/abstract_motor.hpp"
@@ -331,9 +332,12 @@ void autonomous() {
 
   // autoStarted = true;
   // sortingColor = true;
-  
-  trajectory getRing({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1, 0.1);
-  followRamsete(getRing);
+  auto constraints = new Constraints(64.7953485, 64.7953485 * 3, 0.1, 64.7953485 * 3, 64.7953485 * 100, 10.125);
+  auto profileGenerator = new ProfileGenerator(constraints, 0.1);
+  auto test = new CubicBezier({}, {}, {}, {}, 0);
+  profileGenerator->generateProfile(test);
+  followRamsete(profileGenerator);
+
   // trajectory getRing({{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}}, 3, 3, 3, 1, 0.6);
   // // pros::Task([&](){
   // //   while(chassis.getPose().x < 50){
