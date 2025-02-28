@@ -75,7 +75,7 @@ inline double sinc(double x) {
 }
 
 void followRamsete(ProfileGenerator* traj){
-  double dist = 0;
+  double dist = 0.2;
   double prev = vertical_encoder.get_position() / 100.0 * 2.0 * M_PI / 360;
   double b = 2.00;
   double zeta = 0.7;
