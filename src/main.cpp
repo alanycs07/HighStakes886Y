@@ -329,15 +329,8 @@ void autonomous() {
   autoStarted = true;
   sortingColor = true;
   
-  trajectory getRing({{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}}, 3, 3, 3, 1, 0.6);
-  pros::Task([&](){
-    while(chassis.getPose().x < 50){
-      intake.move(127);
-      pros::delay(10);
-    }
-  });
-  follow(getRing.targetLinearVelocity, getRing.targetAngularVelocity,
-         getRing.targetAngle, getRing.points);
+  trajectory getRing({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1, 0.1);
+  followRamsete(getRing);
   /*
   trajectory test({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1);
   follow(test.targetLinearVelocity, test.targetAngularVelocity,
