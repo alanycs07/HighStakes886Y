@@ -87,7 +87,6 @@ inline void followRamsete(trajectory traj) {
 
     int start = pros::millis();
     auto pose = traj.getInfoAtDistance(dist);
-
     double theta =
         fmod_positive(90 - chassis.getPose().theta, 360) * DEG_TO_RAD;
     double cos_theta = cos(theta);
@@ -95,7 +94,6 @@ inline void followRamsete(trajectory traj) {
 
     Eigen::Matrix<double, 3, 3> rotation{
         {cos_theta, sin_theta, 0}, {-sin_theta, cos_theta, 0}, {0, 0, 1}};
-
     Matrixd<3, 1> locale{(pose[0] - chassis.getPose().x) * 0.0254,
                          (pose[1] - chassis.getPose().y) * 0.0254,
                          pose[2] - theta};
@@ -114,7 +112,10 @@ inline void followRamsete(trajectory traj) {
     double right = v + 0.130175 * w;
     drivetrain.leftMotors->move_velocity(39.9701 * left * 60 * (36.0 / 48) /
                                          (2.75 * M_PI));
+                                         (2.75 * M_PI));
     drivetrain.rightMotors->move_velocity(39.9701 * right * 60 * (36.0 / 48) /
+                                          (2.75 * M_PI));
+    pros::delay(10 - (pros::millis() - start));
                                           (2.75 * M_PI));
     pros::delay(10 - (pros::millis() - start));
   }
