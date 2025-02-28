@@ -249,12 +249,13 @@ void autonomous() {
       // RedPositiveAWP();
       // redPositive6Ring();
       //BlueSigAWP();
-      new_skills();
+      // new_skills();
       //skills();
       //RedSigAWP();
       //Blue7Ring();
       //Red7Ring();
       //  RedPos4Ring();
+      RedPos6Ring();
 
     } else if (path == 1) {
       // RedRush();
@@ -302,8 +303,8 @@ void autonomous() {
     }
   }
 
-  autoStarted = true;
-  sortingColor = true;
+  // autoStarted = true;
+  // sortingColor = true;
   /*
   trajectory test({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1);
   follow(test.targetLinearVelocity, test.targetAngularVelocity,

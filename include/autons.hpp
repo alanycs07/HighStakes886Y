@@ -23,6 +23,7 @@ void Blue7Ring();
 void Red7Ring();
 
 void RedPos4Ring();
+void RedPos6Ring();
 
 void skills();
 void noAuto();
