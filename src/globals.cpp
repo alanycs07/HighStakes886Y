@@ -56,9 +56,9 @@ int detected_amount = 0;
 bool runAntiJam = true;
 //ARM MACRO
 //double loadingPos = 18000;
-double loadingPos = 23700;
+double loadingPos = 23550;
 double restingPos = 21000;
-double wallPos =36000;
+double wallPos = 36000;
 double raisedPos = 29000;
 //MO AUTO SELECTOR
 //color 

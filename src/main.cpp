@@ -250,6 +250,7 @@ void autonomous() {
       // redPositive6Ring();
       //BlueSigAWP();
       new_skills();
+      //skills();
       //RedSigAWP();
       //Blue7Ring();
       //Red7Ring();
@@ -329,7 +330,7 @@ void opcontrol() {
   useAutoIntake = false;
   spinUntilDetected = false;
   autoStarted = false;
-  runAntiJam = true;
+  runAntiJam = false;
   // bool isExtended1 = true; // remove for DRIVER SKILLS
   arm.set_brake_mode(pros::MotorBrake::hold);
   // //BELOW FOR DRIVER SKILLS//
