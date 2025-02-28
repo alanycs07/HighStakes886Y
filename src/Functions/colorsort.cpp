@@ -6,10 +6,10 @@
 void colorSort(int sortedColor) {
     pros::vision_object_s_t red_stuff = vision_sensor.get_by_sig(0, 1);
     pros::vision_object_s_t blue_stuff = vision_sensor.get_by_sig(0, 2);
-
-    int ejectCounter = 0;
+    colorSensor.set_led_pwm(100);
 
     distance = sorterDistance.get_distance();
+    vision_distance = indexerDistance.get_distance();
 
     if(ejectRing == false) {
         intake.move_velocity(12000);
@@ -34,11 +34,11 @@ void colorSort(int sortedColor) {
     }
 
     if (sortedColor == red) {
-        if (red_stuff.height * red_stuff.width > 6000) {
+        if ((red_stuff.height * red_stuff.width > 6000)) {
         // if(detected_amount < 2){
             detected_amount += 1;
         // }
-        if (detected_amount >= 2){
+        if ((detected_amount >= 2)){
             ejectRing = true;
                 
                 //  detected_amount = 0;
@@ -51,9 +51,9 @@ void colorSort(int sortedColor) {
     }
 
     if (sortedColor == blue) {
-        if (blue_stuff.height * blue_stuff.width > 6000) {
+        if ((blue_stuff.height * blue_stuff.width > 6000)) {
                 detected_amount += 1;
-            if (detected_amount >= 6){
+            if ((detected_amount >= 6) && (vision_distance < 80)){
                 ejectRing = true;
                 // detected_amount = 0;
                 // intake.move_velocity(0);

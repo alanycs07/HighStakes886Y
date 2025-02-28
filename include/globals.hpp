@@ -17,6 +17,7 @@ extern pros::Vision vision_sensor;
 extern pros::Distance leftDistance;
 extern pros::Distance rightDistance;
 extern pros::Controller controller;
+extern pros::Distance indexerDistance;
 
 // ARM PID //
 extern bool armMacro;
@@ -45,6 +46,8 @@ extern int detected_amount;
 
 extern double hue;
 extern double distance;
+extern double vision_distance;
+extern int ejectCounter;
 
 //ARM STUFF
 extern double loadingPos;

@@ -3,7 +3,7 @@
 #include "globals.hpp"
 
 void loadRing() {
-    // colorSensor.set_led_pwm(100);
+    colorSensor.set_led_pwm(100);
     // hue = colorSensor.get_hue();
     // if (spinUntilDetected == true) {
     //     intake.move_velocity(12000);
@@ -17,13 +17,20 @@ void loadRing() {
     pros::vision_object_s_t red_stuff = vision_sensor.get_by_sig(0, 1);
     pros::vision_object_s_t blue_stuff = vision_sensor.get_by_sig(0, 2);
 
-    intake.move_velocity(12000);
     if (spinUntilDetected == true) {
-    if ((red_stuff.height * red_stuff.width > 4000) || (blue_stuff.height * blue_stuff.width > 4000)) {
-        spinUntilDetected = false;
-    }
-    } else if (spinUntilDetected == false) {
+    // if ((red_stuff.height * red_stuff.width > 4000) || (blue_stuff.height * blue_stuff.width > 4000)) {
+    //     spinUntilDetected = false;
+    // }
+        if (vision_distance < 20) {
+            spinUntilDetected = false;
+        }
+    } 
+    
+    if (spinUntilDetected == false) {
         intake.move_velocity(0);
+    }
+    else {
+        intake.move_velocity(12000);
     }
 }
 

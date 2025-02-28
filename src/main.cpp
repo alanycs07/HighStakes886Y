@@ -117,14 +117,17 @@ void initialize() {
   pros::Task screen_task([&]() {
     while (true) {
       // print robot location to the brain screen
-      pros::lcd::print(0, "X: %f", chassis.getPose().x);         // x
-      pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
-      pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
-      pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
+      // pros::lcd::print(0, "X: %f", chassis.getPose().x);         // x
+      // pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
+      // pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+      // pros::lcd::print(3, "Arm Position: %ld", armRotation.get_position());
       // pros::lcd::print(4, "Voltage: %ld", intake.get_voltage());
       // pros::lcd::print(5, "Current Draw: %ld", intake.get_current_draw());
       // pros::lcd::print(6, "Actual Velocity: %ld",
       // intake.get_actual_velocity());
+
+      pros::lcd::print(1, "detected amount: %ld", detected_amount);
+      pros::lcd::print(2, "Eject Ring: %ld", ejectRing);
 
       if (sortingColor == true) {
         if (ejectColor == red) {
