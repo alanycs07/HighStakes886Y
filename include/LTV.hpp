@@ -7,6 +7,7 @@
 #include "preplanning.h"
 #include <deque>
 
+
 #define DEG_TO_RAD M_PI / 180.0f
 
 inline Eigen::Matrix<double, 3, 3> S;
@@ -86,6 +87,7 @@ inline void followRamsete(trajectory traj) {
 
     int start = pros::millis();
     auto pose = traj.getInfoAtDistance(dist);
+
     double theta =
         fmod_positive(90 - chassis.getPose().theta, 360) * DEG_TO_RAD;
     double cos_theta = cos(theta);
@@ -93,6 +95,7 @@ inline void followRamsete(trajectory traj) {
 
     Eigen::Matrix<double, 3, 3> rotation{
         {cos_theta, sin_theta, 0}, {-sin_theta, cos_theta, 0}, {0, 0, 1}};
+
     Matrixd<3, 1> locale{(pose[0] - chassis.getPose().x) * 0.0254,
                          (pose[1] - chassis.getPose().y) * 0.0254,
                          pose[2] - theta};
