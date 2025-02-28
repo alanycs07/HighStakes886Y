@@ -86,6 +86,7 @@ inline void followRamsete(trajectory traj) {
 
     int start = pros::millis();
     auto pose = traj.getInfoAtDistance(dist);
+    pose[3] *= 0.3048;
     double theta =
         fmod_positive(90 - chassis.getPose().theta, 360) * DEG_TO_RAD;
     double cos_theta = cos(theta);

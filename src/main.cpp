@@ -282,12 +282,12 @@ void autonomous() {
       // RedSigAWP();
       // Blue7Ring();
       // Red7Ring();
-     trajectory test ({{0, 0,}, {0.167, 31.874}, {0.167, 31.874}, {-24, 32}}, 3, 3, 3, 1, 0.4);
-      trajectory getRing({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1, 0.4);
-      followRamsete(test);
+    //  trajectory test ({{0, 0,}, {0.167, 31.874}, {0.167, 31.874}, {-24, 32}}, 3, 3, 3, 1, 0.1);
+    //   trajectory getRing({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1, 0.4);
+    //   followRamsete(test);
 
 
-    } else if (path == 1) {
+    } else if (path == 1) {   
       // RedRush();
       RedPos4Ring();
     } else if (path == 2) {

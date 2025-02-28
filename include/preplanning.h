@@ -168,14 +168,14 @@ public:
 
     // Calculate total path length using Gaussian quadrature
     for (int i = 0; i < 24; i++) {
-      double t = coeff[i][1] + 0.5;
+      double t = coeff[i][1] + 0.5;  // Shifts the node from [-0.5,0.5] to [0,1]
       derivative(t);
-      double segmentLength =
-          sqrt(firstDerivative.first * firstDerivative.first +
-               firstDerivative.second * firstDerivative.second);
+      double segmentLength = sqrt(firstDerivative.first * firstDerivative.first +
+                                  firstDerivative.second * firstDerivative.second);
       totalDistance += coeff[i][0] * segmentLength;
     }
     totalDistance *= 0.5;
+    
 
     // Initialize first point
     double traveledDistance = 0;
