@@ -334,7 +334,7 @@ void autonomous() {
   // sortingColor = true;
   auto constraints = new Constraints(64.7953485, 64.7953485 * 3, 0.1, 64.7953485 * 3, 64.7953485 * 100, 10.125);
   auto profileGenerator = new ProfileGenerator(constraints, 0.1);
-  auto test = new CubicBezier({}, {}, {}, {}, 0);
+  auto test = new CubicBezier({0, 0}, {-0.094, 31.707}, {-0.094, 31.707}, {-24, 32}, 1);
   profileGenerator->generateProfile(test);
   followRamsete(profileGenerator);
 
