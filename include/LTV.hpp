@@ -7,7 +7,6 @@
 #include "preplanning.h"
 #include <deque>
 
-
 #define DEG_TO_RAD M_PI / 180.0f
 
 inline Eigen::Matrix<double, 3, 3> S;
@@ -112,10 +111,7 @@ inline void followRamsete(trajectory traj) {
     double right = v + 0.130175 * w;
     drivetrain.leftMotors->move_velocity(39.9701 * left * 60 * (36.0 / 48) /
                                          (2.75 * M_PI));
-                                         (2.75 * M_PI));
     drivetrain.rightMotors->move_velocity(39.9701 * right * 60 * (36.0 / 48) /
-                                          (2.75 * M_PI));
-    pros::delay(10 - (pros::millis() - start));
                                           (2.75 * M_PI));
     pros::delay(10 - (pros::millis() - start));
   }
