@@ -12,7 +12,6 @@ extern pros::MotorGroup left_motors;
 extern pros::MotorGroup right_motors;
 
 extern pros::Motor intake;
-extern pros::Motor intake2;
 // extern pros::Motor arm;
 // extern pros::Motor arm2;
 extern pros::MotorGroup arm;

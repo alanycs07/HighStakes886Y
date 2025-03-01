@@ -16,6 +16,7 @@ pros::Distance leftDistance(18);
 pros::Distance rightDistance(19);
 pros::adi::Button limitSwitch(5);
 pros::Distance sorterDistance(1);
+pros::Distance intakeDistance(11);
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 // ARM PID //
 bool armMacro = false;
@@ -43,6 +44,7 @@ bool ejectRing = false;
 bool sortNextRing = false;
 double hue;
 double distance;
+double intake_Distance;
 // OTHER AUTO INFO //
 bool autoStarted = true;
 bool spinUntilDetected = true;

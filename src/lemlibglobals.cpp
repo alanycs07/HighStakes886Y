@@ -10,7 +10,7 @@ pros::MotorGroup left_motors({8, -9, -3}, pros::MotorGearset::blue);
 pros::MotorGroup right_motors({-13, 14, 12}, pros::MotorGearset::blue);
 
 pros::Motor intake(-6, pros::MotorGearset::blue); //11W
-pros::Motor intake2(11, pros::MotorGearset::green); //5.5W
+// pros::Motor intake2(11, pros::MotorGearset::green); //5.5W
 // pros::Motor arm1 (10, pros::MotorGearset::green);
 // pros::Motor arm2(4, pros::MotorGearset::green);
 

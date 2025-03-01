@@ -16,6 +16,7 @@ extern pros::Distance sorterDistance;
 extern pros::Vision vision_sensor;
 extern pros::Distance leftDistance;
 extern pros::Distance rightDistance;
+extern pros::Distance intakeDistance;
 extern pros::Controller controller;
 
 // ARM PID //
@@ -42,6 +43,7 @@ extern bool sortingColor;
 extern bool ejectRing;
 extern bool sortNextRing;
 extern int detected_amount;
+extern double intake_Distance;
 
 extern double hue;
 extern double distance;

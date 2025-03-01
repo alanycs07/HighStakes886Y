@@ -12,7 +12,7 @@ void colorSort(int sortedColor) {
 
     if(ejectRing == false) {
         intake.move_velocity(12000);
-        intake2.move_velocity(12000);
+        // intake2.move_velocity(12000);
     } 
     else if (ejectRing == true) {
         if (distance < 35) {
@@ -70,7 +70,7 @@ void colorSort(int sortedColor) {
 else {
         // ejectRing = false;
         intake.move_velocity(12000);
-        intake2.move_velocity(12000);
+        // intake2.move_velocity(12000);
     }
 
 }

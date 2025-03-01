@@ -251,11 +251,11 @@ void autonomous() {
       //BlueSigAWP();
       // new_skills();
       //skills();
-      //RedSigAWP();
+      RedSigAWP();
       //Blue7Ring();
       //Red7Ring();
       //  RedPos4Ring();
-      RedPos6Ring();
+      // RedPos6Ring();
 
     } else if (path == 1) {
       // RedRush();
@@ -346,11 +346,11 @@ void opcontrol() {
 
     } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
       intake.move_voltage(-12000);
-      intake2.move_voltage(-12000);
+      // intake2.move_voltage(-12000);
       sortingColor = false;
     } else if (!stopIntake) {
       intake.move_voltage(0);
-      intake2.move_voltage(0);
+      // intake2.move_voltage(0);
       sortingColor = false;
     }
 
