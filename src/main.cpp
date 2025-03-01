@@ -332,10 +332,12 @@ void autonomous() {
 
   // autoStarted = true;
   // sortingColor = true;
-  auto constraints = new Constraints(64.7953485, 64.7953485 * 3, 0.1, 64.7953485 * 3, 64.7953485 * 100, 10.125);
-  auto profileGenerator = new ProfileGenerator(constraints, 0.1);
-  auto test = new CubicBezier({0, 0}, {-0.094, 31.707}, {-0.094, 31.707}, {-24, 32}, 1);
+  auto constraints = new Constraints(64.7953485, 64.7953485 * 3, 0.5, 64.7953485 * 3, 0, 10.125);
+  auto profileGenerator = new ProfileGenerator();
+  CubicBezier *test;
+  test = new CubicBezier({0, 0}, {-0.094, 31.707}, {-0.094, 31.707}, {-24, 32}, 100);
   profileGenerator->generateProfile(test);
+  std::cout << profileGenerator->getProfilePoint(5).vel << std::endl;
   followRamsete(profileGenerator);
 
   // trajectory getRing({{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}}, 3, 3, 3, 1, 0.6);
