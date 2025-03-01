@@ -399,7 +399,22 @@ void opcontrol() {
       useAutoIntake = false;
     }
 
-    chassis.arcade(leftY, leftX);
+    // chassis.arcade(leftY, leftX);
+    double r = std::sqrt(leftX * leftX + leftY * leftY);
+    if (r == 0) {
+      chassis.arcade(0, 0);
+    }
+    double nx = leftX / r;
+    double ny = leftY / r;
+    double absX = std::fabs(nx);
+    double absY = std::fabs(ny);
+
+    if(absX >= absY){
+      // y x 
+      chassis.arcade(ny / absX * r, sgn(nx) * r, false, 0.425);
+    }else {
+      chassis.arcade(sgn(ny) * r, nx / absY * r, false, 0.425);
+    }
 
     // ARM BELOW
 

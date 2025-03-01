@@ -21,9 +21,9 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 // ARM PID //
 bool armMacro = false;
 double armPosition;
-double armkP = 1.4;
-double armkI = 0;
-double armkD = 0.1;
+double armkP = 1.6;
+double armkI = 0.01;
+double armkD = 0.25;
 double previous_error = 0;
 double target;
 double error;
@@ -58,7 +58,7 @@ int detected_amount = 0;
 bool runAntiJam = true;
 //ARM MACRO
 //double loadingPos = 18000;
-double loadingPos = 23550;
+double loadingPos = 24000;
 double restingPos = 21000;
 double wallPos = 36000;
 double raisedPos = 29000;
