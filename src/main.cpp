@@ -6,8 +6,8 @@
 #include "lemlibglobals.hpp"
 #include "liblvgl/llemu.hpp"
 #include "localization.h"
-#include "motionprofile.hpp"
 #include "mathfunc.hpp"
+#include "motionprofile.hpp"
 #include "preplanning.h"
 #include "pros/abstract_motor.hpp"
 #include "pros/adi.hpp"
@@ -16,6 +16,7 @@
 #include "pros/motors.h"
 #include "pros/rotation.hpp"
 #include "pros/rtos.hpp"
+
 
 ASSET(clampGoalCurve_txt);
 /**
@@ -283,12 +284,12 @@ void autonomous() {
       // RedSigAWP();
       // Blue7Ring();
       // Red7Ring();
-    //  trajectory test ({{0, 0,}, {0.167, 31.874}, {0.167, 31.874}, {-24, 32}}, 3, 3, 3, 1, 0.1);
-    //   trajectory getRing({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1, 0.4);
-    //   followRamsete(test);
+      //  trajectory test ({{0, 0,}, {0.167, 31.874}, {0.167, 31.874}, {-24,
+      //  32}}, 3, 3, 3, 1, 0.1);
+      //   trajectory getRing({{0, 0}, {0, 24}, {0, 24}, {-24, 24}}, 3, 3, 3, 1,
+      //   0.4); followRamsete(test);
 
-
-    } else if (path == 1) {   
+    } else if (path == 1) {
       // RedRush();
       RedPos4Ring();
     } else if (path == 2) {
@@ -332,15 +333,18 @@ void autonomous() {
 
   // autoStarted = true;
   // sortingColor = true;
-  auto constraints = new Constraints(64.7953485, 64.7953485 * 3, 0.5, 64.7953485 * 3, 0, 10.125);
+  auto constraints = new Constraints(64.7953485, 64.7953485 * 3, 0.5,
+                                     64.7953485 * 3, 0, 10.125);
   auto profileGenerator = new ProfileGenerator();
-  CubicBezier *test;
-  test = new CubicBezier({0, 0}, {-0.094, 31.707}, {-0.094, 31.707}, {-24, 32}, 100);
-  profileGenerator->generateProfile(test);
-  std::cout << profileGenerator->getProfilePoint(5).vel << std::endl;
+  Spline *test;
+  test = new Spline(
+      {new CubicBezier(Point(0, 0), Point(-0.095, 31.707), Point(-0.094, 31.707), Point(-24, 32))});
+  profileGenerator->generateProfile(test, constraints);
+  std::cout << profileGenerator->getProfilePoint(5)->vel << std::endl;
   followRamsete(profileGenerator);
 
-  // trajectory getRing({{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}}, 3, 3, 3, 1, 0.6);
+  // trajectory getRing({{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}}, 3, 3, 3, 1,
+  // 0.6);
   // // pros::Task([&](){
   // //   while(chassis.getPose().x < 50){
   // //     intake.move(127);
@@ -451,10 +455,10 @@ void opcontrol() {
     double absX = std::fabs(nx);
     double absY = std::fabs(ny);
 
-    if(absX >= absY){
-      // y x 
+    if (absX >= absY) {
+      // y x
       chassis.arcade(ny / absX * r, sgn(nx) * r);
-    }else {
+    } else {
       chassis.arcade(sgn(ny) * r, nx / absY * r);
     }
     // ARM BELOW

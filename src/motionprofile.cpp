@@ -2,7 +2,28 @@
 #include "motionprofile.hpp"
 
 #include <iostream>
-namespace mpLib {
+
+double angleDifference(double angle1, double angle2, int maxLoops) {
+  double difference = angle1 - angle2;
+  int loopCount = 0;
+  while (fabs(difference) > 3.141592653) {
+    difference += 3.141592653 * 2.0 * -sgn(difference);
+    loopCount++;
+  }
+  return difference;
+}
+
+double angle180(double angle) {
+  return angle - (floor((angle + 180) / 360)) * 360;
+}
+
+double calcCurvature(Point2D d, Point2D dd) {
+  double denominator = d.x * d.x + d.y * d.y;
+  denominator *= denominator * denominator;
+  denominator = std::sqrt(denominator);
+  double k = (d.x * dd.y - d.y * dd.x) / denominator;
+  return k;
+}
 
 CubicBezier::CubicBezier(const Point2D &p0, const Point2D &p1,
                          const Point2D &p2, const Point2D &p3) {
@@ -231,6 +252,8 @@ void ProfileGenerator::generateProfile(virtualPath *path,
     forwardPass.push_back(profileOutput);
   }
 
+  this->forwardDist = dist;
+
   vel = 0.00001;
   last_angular_vel = 0;
   angular_accel = 0;
@@ -276,4 +299,3 @@ std::optional<ChassisSpeeds> ProfileGenerator::getProfilePoint(double d) {
                        Pose(this->profile[index].x, this->profile[index].y,
                             this->profile[index].theta));
 }
-} // namespace mpLib

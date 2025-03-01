@@ -86,7 +86,7 @@ inline void followRamsete(ProfileGenerator* traj){
 
     int start = pros::millis();
     auto pose = traj->getProfilePoint(dist);
-    pose.vel *= 0.0254;
+    pose->vel *= 0.0254;
     double theta =
         fmod_positive(90 - chassis.getPose().theta, 360) * DEG_TO_RAD;
     double cos_theta = cos(theta);
@@ -94,9 +94,9 @@ inline void followRamsete(ProfileGenerator* traj){
 
     Eigen::Matrix<double, 3, 3> rotation{
         {cos_theta, sin_theta, 0}, {-sin_theta, cos_theta, 0}, {0, 0, 1}};
-    Matrixd<3, 1> locale{(pose.pose.x - chassis.getPose().x) * 0.0254,
-                         (pose.pose.y - chassis.getPose().y) * 0.0254,
-                         pose.pose.theta - theta};
+    Matrixd<3, 1> locale{(pose->pose.x - chassis.getPose().x) * 0.0254,
+                         (pose->pose.y - chassis.getPose().y) * 0.0254,
+                         pose->pose.theta - theta};
     Matrixd<3, 1> error = rotation * locale;
 
     error[2] = std::fmod(error[2] + M_PI, 2 * M_PI);
@@ -104,10 +104,10 @@ inline void followRamsete(ProfileGenerator* traj){
       error[2] += 2 * M_PI;
     error[2] -= M_PI;
 
-    double k = 2.0 * zeta * sqrt(pow(pose.omega, 2) + b * pow(pose.vel, 2));
-    double v = pose.vel * cos(error[2]) + k * error[0];
-    double w = pose.omega + k * error[2] + b * pose.vel * sinc(error[2]) * error[1];
-    std::cout << pose.vel << " " << pose.omega << std::endl;
+    double k = 2.0 * zeta * sqrt(pow(pose->omega, 2) + b * pow(pose->vel, 2));
+    double v = pose->vel * cos(error[2]) + k * error[0];
+    double w = pose->omega + k * error[2] + b * pose->vel * sinc(error[2]) * error[1];
+    std::cout << pose->vel << " " << pose->omega << std::endl;
     double left = v - 0.130175 * w;
     double right = v + 0.130175 * w;
     drivetrain.leftMotors->move_velocity(39.9701 * left * 60 * (36.0 / 48) /

@@ -102,6 +102,7 @@ public:
                        double dd = 0.1);
   std::optional<ChassisSpeeds> getProfilePoint(double d);
   auto getProfile() { return profile; }
+  double forwardDist;
 
 private:
   Constraints *constraints;
