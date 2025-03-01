@@ -156,7 +156,7 @@ void initialize() {
           current_peak = 0;
         }
 
-        if (current_peak > 4 && !stopIntake && !armMacro) {
+        if (current_peak > 6 && !stopIntake && !armMacro) {
           intake.move(-127);
           // if(intake.get_voltage() > 5000){previous_state = 127;}
           // else if(intake.get_voltage() < -5000){previous_state = -127;}
