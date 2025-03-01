@@ -6,11 +6,35 @@ ASSET (BlueNegGoalCurve_txt);
 ASSET (BlueNegativeRingStackCurve_txt);
 
 void Blue7Ring(){
-    chassis.setPose(0,0,0);
+    armMacro = true;
+    chassis.setBrakeMode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_HOLD);
+    chassis.setPose(61.5, 11.6, 163.3);
+    armTarget = wallPos;
+    pros::delay(600);
+    chassis.turnToPoint(29, 25, 1000, {.forwards = false, .minSpeed = 20, .earlyExitRange = 7});
+    chassis.waitUntilDone();
+    armTarget = restingPos;
+    chassis.moveToPoint(29, 25, 1500, {.forwards = false, .maxSpeed = 80});
+    chassis.waitUntilDone();
     goalClamp.set_value(true);
-    pros::delay(200);
-    //chassis.moveToPoint(0, 24, 100000);
-    chassis.turnToHeading(90, 10000);
+    pros::delay(100);  
+    chassis.turnToPoint(14.5, 40, 800);
+    chassis.waitUntilDone();
+    runAntiJam = true;
+    sortingColor = true;
+    chassis.moveToPoint(14.5, 40, 800, {.minSpeed = 30, .earlyExitRange = 6});
+    chassis.turnToPoint(9, 47, 400, {.minSpeed = 30, .earlyExitRange = 10});
+    chassis.moveToPoint(9, 47, 400, {.minSpeed = 20, .earlyExitRange = 10});
+
+    // chassis.swingToPoint(23, 47, DriveSide::RIGHT, 800);
+    // chassis.moveToPoint(23, 47, 1000);
+
+
+    // chassis.setPose(0,0,0);
+    // goalClamp.set_value(true);
+    // pros::delay(200);
+    // //chassis.moveToPoint(0, 24, 100000);
+    // chassis.turnToHeading(90, 10000);
     /*
     runAntiJam = true;
     armMacro = true;

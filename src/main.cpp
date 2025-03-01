@@ -251,11 +251,12 @@ void autonomous() {
       //BlueSigAWP();
       // new_skills();
       //skills();
-      RedSigAWP();
-      //Blue7Ring();
+      // RedSigAWP();
+      Blue7Ring();
       //Red7Ring();
       //  RedPos4Ring();
       // RedPos6Ring();
+
 
     } else if (path == 1) {
       // RedRush();
