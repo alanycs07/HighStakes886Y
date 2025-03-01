@@ -70,7 +70,7 @@ void on_right_button() {
   if (path == 0 && (startingPos == 0 || startingPos == 2)) {
     pros::lcd::set_text(6, "Autonomous Running: SIG AWP");
   } else if (path == 1 && (startingPos == 0 || startingPos == 2)) {
-    pros::lcd::set_text(6, "Autonomous Running: Positive 4 Ring");
+    pros::lcd::set_text(6, "Autonomous Running: Positive 6 Ring");
   } else if (path == 2 && (startingPos == 0 || startingPos == 2)) {
     pros::lcd::set_text(6, "Autonomous Running: N/A");
   } else if (path == 3 && (startingPos == 0 || startingPos == 2)) {
@@ -156,7 +156,7 @@ void initialize() {
           current_peak = 0;
         }
 
-        if (current_peak > 4 && !stopIntake && !armMacro) {
+        if (current_peak > 6 && !stopIntake && !armMacro) {
           intake.move(-127);
           // if(intake.get_voltage() > 5000){previous_state = 127;}
           // else if(intake.get_voltage() < -5000){previous_state = -127;}
@@ -182,7 +182,6 @@ void initialize() {
           }
         }
       }
-
       // if (intake.get_actual_velocity() >= 0 && intake.get_actual_velocity() <
       // 100 && abs(intake.get_current_draw()) > 2000  && !stopIntake){
       //       intake.move(-127);
@@ -232,7 +231,7 @@ void autonomous() {
   runAntiJam = true;
   if (autonColor == 0) {
     //EJECT BLUE
-    ejectColor = red;
+    ejectColor = blue;
     // ejectColor = red;
   }
   else if (autonColor == 1) {
@@ -251,8 +250,8 @@ void autonomous() {
       //BlueSigAWP();
       // new_skills();
       //skills();
-      // RedSigAWP();
-      Blue7Ring();
+      RedSigAWP();
+      // Blue7Ring();
       //Red7Ring();
       //  RedPos4Ring();
       // RedPos6Ring();
@@ -260,7 +259,7 @@ void autonomous() {
 
     } else if (path == 1) {
       // RedRush();
-      RedPos4Ring();
+      RedPos6Ring();
     } else if (path == 2) {
 
     }
@@ -279,6 +278,7 @@ void autonomous() {
       BlueSigAWP();
     } else if (path == 1) {
       // BluePos4Ring();
+      BluePos6Ring();
     } else if (path == 2) {
 
     }
@@ -295,7 +295,8 @@ void autonomous() {
     //SKILLS
     if (path == 0) {
 
-      skills();
+      // skills();
+      new_skills();
 
     } else if (path == 1) {
       noAuto();
