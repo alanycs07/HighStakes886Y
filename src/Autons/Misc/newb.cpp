@@ -210,11 +210,11 @@
 void new_skills() {
   arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-  ejectColor = blue;
+  ejectColor = noColor;
   autoStarted = true;
   sortingColor = true;
   armTarget = restingPos;
-  runAntiJam = false;
+  runAntiJam = true;
   chassis.setPose(0, 0, 0);
 
   armTarget = restingPos;
@@ -225,23 +225,26 @@ void new_skills() {
   chassis.waitUntilDone();
   pros::delay(100);
   chassis.moveToPoint(-26.4, 40.6, 1100, {.maxSpeed = 100});  //first ring
-  chassis.turnToPoint(-25.7, 18, 500, {.forwards = false}); //aim for the goal
+  chassis.turnToPoint(-25.7, 18, 400, {.forwards = false}); //aim for the goal
   sortingColor = false;
   intake.move(0);
-  chassis.moveToPoint(-25.3, 18.2, 1000, {.forwards = false, .maxSpeed = 60});  //backs up to the goal
+  chassis.moveToPoint(-25.3, 18.2, 800, {.forwards = false, .maxSpeed = 60});  //backs up to the goal
   chassis.waitUntilDone();
   goalClamp.set_value(true);  //clamps goal
-  chassis.turnToPoint(-57.4, 111.5, 500); //turn to top left ring 
+  chassis.turnToPoint(-44, 91, 500);
+  
+  chassis.moveToPoint(-44, 91, 1000, {.minSpeed = 50}); 
   sortingColor = true;
-  chassis.moveToPoint(-56.8, 111.5, 3000, {.minSpeed = 60}); //goes there and intake 2 rings
+  chassis.moveToPoint(-56.7, 111.5, 3000, {.minSpeed = 50}); //goes there and intake 2 rings
+  
   chassis.waitUntilDone();
   pros::delay(400);
-  chassis.moveToPoint(-48, 93, 1100, {.forwards = false});  //drive back
+  chassis.moveToPoint(-48, 93, 1000, {.forwards = false});  //drive back
   chassis.turnToPoint(-50.5, 7, 1200, {.maxSpeed = 90}); //turn to bottom 3 rings
   chassis.moveToPoint(-50.5, 35, 1400, {.maxSpeed = 90}); //move there
   chassis.waitUntilDone();
   pros::delay(100);
-  chassis.moveToPoint(-50.5, 0, 1500, {.maxSpeed = 50}); //move there
+  chassis.moveToPoint(-50.5, 0, 1250, {.maxSpeed = 50}); //move there
   chassis.waitUntilDone();
   double reading = 0;
   for(int i = 0; i < 5; i++){
@@ -259,22 +262,22 @@ void new_skills() {
   chassis.waitUntilDone();
   pros::delay(300);
   chassis.turnToHeading(20, 400);
-  chassis.moveToPoint(-67, 7.5, 800, {.forwards = false}); 
+  chassis.moveToPoint(-67, 7.5, 800, {.forwards = false, .maxSpeed = 40}); 
   goalClamp.set_value(false); // put goal down
-  chassis.moveToPoint(-49.5, 63, 1500, {.maxSpeed = 100}); // going to wall ring
+  chassis.moveToPoint(-49.5, 63.8, 1500, {.maxSpeed = 100}); // going to wall ring
   
   chassis.waitUntil(10);
   sortingColor = false;
   intake.move_velocity(0);
-  chassis.turnToPoint(-78, 63, 1000); //turn to wall
-  chassis.moveToPoint(-78, 63, 1200, {.maxSpeed = 60});  
+  chassis.turnToPoint(-78, 63.7, 700); //turn to wall
+  chassis.moveToPoint(-78, 63.7, 1200, {.maxSpeed = 60});  
   armTarget = raisedPos;
   pros::delay(100);
   sortingColor = true;
-  pros::delay(800);
+  pros::delay(620);
   sortingColor = false;
   intake.move(0);
-  chassis.moveToPoint(-78, 63, 2000, {.maxSpeed = 10});  
+  chassis.moveToPoint(-78, 63.5, 2000, {.maxSpeed = 10});  
   armTarget = wallPos;
   pros::delay(600);
   armTarget = loadingPos;
@@ -288,21 +291,22 @@ void new_skills() {
   armTarget = wallPos;
   pros::delay(900);
   armTarget = restingPos;
-  chassis.moveToPoint(-52, 66, 900, {.forwards = false}); //drive back from wall
+  chassis.moveToPoint(-51, 63.5, 900, {.forwards = false}); //drive back from wall
   
-  chassis.turnToPoint(-52.8, 108, 1000); //aim for top 1 rings
-  chassis.moveToPoint(-52.8, 108, 1000, {.maxSpeed = 110});
+  chassis.turnToPoint(-50.5, 109.4, 800); //aim for top 1 rings
+  chassis.moveToPoint(-50.5, 109.4, 1200, {.maxSpeed = 90});
   sortingColor = true;
   chassis.waitUntilDone();
-  pros::delay(600);
+  pros::delay(350);
   sortingColor = false;
   intake.move(0);
-  chassis.turnToPoint(-31.5, 113, 1000);
+  chassis.turnToPoint(-31.5, 114, 800);
   
-  chassis.moveToPoint(-31.5, 113, 700);
+  chassis.moveToPoint(-31.5, 114, 700);
   doinker.set_value(true);
   chassis.swingToPoint(-62, 122, DriveSide::LEFT, 1200);
-  chassis.moveToPoint(-65, 126, 1500);
+  chassis.moveToPoint(-65, 133, 1500);
+  leftDoinker.set_value(true);
   doinker.set_value(false);
   // chassis.waitUntilDone();
   // reading = 0;
@@ -327,76 +331,83 @@ void new_skills() {
   //   chassis.moveToPoint(-35, 125, 1000);  
   //   sortingColor = false;
   //   intake.move(0);
-    chassis.turnToPoint(1.5, 110, 500, {.forwards = false}); //aim for the goal
-    chassis.moveToPoint(1.5, 110, 1500, {.forwards = false, .maxSpeed = 85});
+    chassis.turnToPoint(1.5, 111, 500, {.forwards = false}); //aim for the goal
+    chassis.moveToPoint(1.5, 111, 1700, {.forwards = false, .maxSpeed = 80});
+    leftDoinker.set_value(false);
     chassis.waitUntilDone();
     goalClamp.set_value(true);  //clamps goal
-    chassis.moveToPoint(-38, 100, 1500, {.maxSpeed = 90});
-    chassis.turnToPoint(35, 14, 1200);
-    chassis.moveToPoint(35, 14, 3000); //move diagonally down
+    chassis.moveToPoint(-39.5, 89, 1200, {.maxSpeed = 90});
     sortingColor = true;
-    chassis.waitUntil(65);
+    chassis.waitUntilDone();
+    pros::delay(200);
+    chassis.turnToPoint(40, 14, 800);
+    chassis.moveToPoint(40, 14, 3000); //move diagonally down
+  
+    chassis.waitUntil(35);
+    sortingColor = false;
+    intake.move(0);
+    chassis.waitUntil(58);
     sortingColor = true;
-    chassis.turnToPoint(45, 0, 700);
-    chassis.moveToPoint(45, 0, 1000);
+    chassis.turnToPoint(41, -2, 700);// getting 2 rings 
+    chassis.moveToPoint(41, -2, 1000);
     pros::delay(400);
-    chassis.turnToPoint(63.2, 13, 900);
-    chassis.moveToPoint(63.2, 13, 1000);
+    chassis.turnToPoint(63.2, 14, 900); // last ring to fill the goal
+    chassis.moveToPoint(63.2, 14, 1000);
     chassis.waitUntilDone();
     pros::delay(700);
-    chassis.moveToPoint(68, 4, 1500, {.forwards = false});
+    chassis.moveToPoint(67, 2, 1200, {.forwards = false}); // put goal down at this coord
     sortingColor = false;
     intake.move(0);
     chassis.waitUntilDone();
     goalClamp.set_value(false);
     pros::delay(50);
-    chassis.moveToPoint(58, 16, 800);
-    chassis.turnToPoint(30,15.4, 800, {.forwards = false});
-    chassis.moveToPoint(30, 15.4, 1200, {.forwards = false, .maxSpeed = 70});
+    chassis.moveToPoint(58, 13.5, 800);
+    chassis.turnToPoint(26,12.7, 800, {.forwards = false});
+    chassis.moveToPoint(26, 12.7, 1400, {.forwards = false, .maxSpeed = 70}); //back up to last goal
     chassis.waitUntilDone();
     goalClamp.set_value(true);
-    chassis.moveToPoint(55, 60, 1200);
+    chassis.moveToPoint(31, 13.8, 600, {.minSpeed = 30}); //dont change this
+    chassis.moveToPoint(52.5, 61.2, 1500);
     sortingColor = true;
     chassis.waitUntilDone();
-    pros::delay(100);
-    chassis.turnToPoint(80, 60, 900); //turn to wall
-    chassis.moveToPoint(80, 60, 1000, {.maxSpeed = 60});
-    armTarget = raisedPos;
-    pros::delay(100);
-    sortingColor = true;
-    pros::delay(400);
-    sortingColor = false;
-    intake.move(0);
-    chassis.waitUntilDone();//goes to wall
-    armTarget = wallPos;
-    pros::delay(600);
+    pros::delay(200);
+    chassis.turnToPoint(80, 61, 900); //turn to wall
+    chassis.moveToPoint(80, 61, 1000, {.maxSpeed = 60});
+   
     armTarget = loadingPos;
     pros::delay(500);
     useAutoIntake = false;
     spinUntilDetected = false;
     sortingColor = true;
-    pros::delay(900);
+    pros::delay(1200);
     sortingColor = false;
     intake.move(0);
     armTarget = wallPos;
     pros::delay(700);
-    chassis.moveToPoint(50, 60, 800, {.forwards = false}); //drive back from wall
+    chassis.moveToPoint(50, 61, 800, {.forwards = false}); //drive back from wall
   
     armTarget = restingPos;
-    chassis.turnToPoint(62, 87, 800);
+    chassis.turnToPoint(53, 85, 800); //ring 1 right top
     sortingColor = true;
-    chassis.moveToPoint(62, 87, 1200);
-    chassis.turnToPoint(43, 88, 800);
-    chassis.moveToPoint(43, 88, 1200);
-    chassis.moveToPoint(63, 88, 1200, {.forwards = false});
-    chassis.turnToPoint(63, 128, 800);
-    chassis.moveToPoint(63, 128, 1200);
+    chassis.moveToPoint(53, 85, 1200);
+    chassis.turnToPoint(31, 88.5, 800); //ring 2 
+    chassis.moveToPoint(31, 88.5, 1200);
+    chassis.moveToPoint(57, 88, 1200, {.forwards = false}); //back up
+    chassis.turnToPoint(57, 128, 800);
+    chassis.moveToPoint(57, 128, 1200, {.maxSpeed = 60}); //get 2 rings
     chassis.waitUntilDone();
     pros::delay(500);
-    chassis.turnToPoint(75, 131, 800, {.forwards = false});
-    chassis.moveToPoint(75, 131, 1200, {.forwards = false});
+    chassis.turnToPoint(75, 131, 800, {.forwards = false}); //drop goal
+    chassis.moveToPoint(75, 131, 600, {.forwards = false});
     sortingColor = false;
     intake.move(0);
     chassis.waitUntilDone();
     goalClamp.set_value(false);
+    chassis.moveToPoint(73, 110, 700);
+    armTarget = wallPos;
+    chassis.moveToPoint(-16, 60, 1600, {.forwards = false, .minSpeed = 110}); // hang
+    chassis.waitUntilDone();
+    armTarget = loadingPos;
+
+    
 }

@@ -249,10 +249,10 @@ void autonomous() {
       // RedPositiveAWP();
       // redPositive6Ring();
       //BlueSigAWP();
-      // new_skills();
+      new_skills();
       //skills();
       // RedSigAWP();
-      Blue7Ring();
+      //Blue7Ring();
       //Red7Ring();
       //  RedPos4Ring();
       // RedPos6Ring();
