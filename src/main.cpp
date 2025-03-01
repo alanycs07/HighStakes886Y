@@ -346,9 +346,11 @@ void opcontrol() {
 
     } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
       intake.move_voltage(-12000);
+      intake2.move_voltage(-12000);
       sortingColor = false;
     } else if (!stopIntake) {
       intake.move_voltage(0);
+      intake2.move_voltage(0);
       sortingColor = false;
     }
 
@@ -422,7 +424,8 @@ void opcontrol() {
     if (rightX < -70) {
       // alliance stake lineup
       armMacro = true;
-      armTarget = 72000;
+      // armTarget = 72000;
+      armTarget = raisedPos;
     }
 
     pros::delay(25); // Run for 20 ms then update
