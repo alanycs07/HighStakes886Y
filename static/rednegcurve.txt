@@ -1,0 +1,33 @@
+-64.8, 11.4, 255.568  
+-64.107, 13.275, 256.723  
+-63.166, 15.038, 256.66  
+-61.991, 16.654, 255.447  
+-60.61, 18.099, 256.616  
+-59.062, 19.363, 258.955  
+-57.385, 20.45, 261.349  
+-55.612, 21.374, 263.803  
+-53.769, 22.15, 266.322  
+-51.876, 22.793, 268.911  
+-49.947, 23.32, 271.575  
+-47.994, 23.75, 274.323  
+-46.024, 24.092, 277.162  
+-44.041, 24.353, 280.101  
+-42.051, 24.55, 283.153  
+-40.055, 24.68, 286.331  
+-38.057, 24.76, 289.653  
+-36.057, 24.786, 293.139  
+-34.057, 24.77, 296.818  
+-32.058, 24.712, 300.725  
+-30.06, 24.616, 304.908  
+-28.065, 24.486, 309.435  
+-26.071, 24.323, 314.411  
+-24.081, 24.13, 320  
+-22.869, 24.001, 360  
+-22.869, 24.001, 360  
+-2.982, 21.88, 360  
+endData
+119.6
+127
+200 
+-64.8, 11.4, -60.982, 24.248, -42.668, 26.228, -22.869, 24.001
+#PATH.JERRYIO-DATA {"appVersion":"0.8.3","format":"LemLib v0.5","gc":{"robotWidth":12,"robotHeight":12,"robotIsHolonomic":false,"showRobot":false,"uol":2.54,"pointDensity":2,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"V5RC 2025 - High Stakes","signature":"V5RC 2025 - High Stakes","origin":{"__type":"built-in"}},"coordinateSystem":"VEX Gaming Positioning System"},"paths":[{"segments":[{"controls":[{"uid":"zYqjg1I0i1","x":-64.8,"y":11.4,"lock":false,"visible":true,"heading":194.7,"__type":"end-point"},{"uid":"AWO0f22iQY","x":-60.98170019308111,"y":24.248154345275765,"lock":false,"visible":true,"__type":"control"},{"uid":"LyBl4lNobE","x":-42.66774567746286,"y":26.228041319937198,"lock":false,"visible":true,"__type":"control"},{"uid":"RJGxof599c","x":-22.868875930848564,"y":24.00066847344309,"lock":false,"visible":true,"heading":90,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"8GPBBOiRVX"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":40,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":1,"label":"1"},"step":0.001,"from":0,"to":0.1},"maxDecelerationRate":119.6},"name":"Path","uid":"XHoq1jefcE","lock":false,"visible":true}]}
